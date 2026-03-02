@@ -1,0 +1,1011 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+    <meta name="description"
+        content="Juic'E Drinks - Fuel Your Wellness Journey Naturally. Clean, fresh, and nutrient-packed juices made to support your health goals.">
+    <meta name="theme-color" content="#2d8659">
+    <title>Juic'E Drinks - Fuel Your Wellness Journey Naturally</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://js.stripe.com/v3/"></script>
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-content">
+                <div class="logo">
+                    <a href="#home">
+                        <img src="assets/images/logo.png" alt="Juic'E Drinks" class="brand-logo">
+                    </a>
+                </div>
+                <ul class="nav-menu">
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#products">Products</a></li>
+                    <li><a href="#packages">Packages</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#faq">FAQ</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+                <button class="cart-icon" id="cartButton" aria-label="Shopping cart">
+                    <span>🛒</span>
+                    <span class="cart-count" id="cartCount">0</span>
+                </button>
+                <button class="menu-toggle" aria-label="Toggle menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-badges">
+                    <span class="badge">100% ORGANIC</span>
+                    <span class="badge">RAW</span>
+                    <span class="badge">COLD PRESSED</span>
+                    <span class="badge">SUGAR FREE</span>
+                    <span class="badge">GLUTEN FREE</span>
+                </div>
+                <h2 class="hero-title">True Wealth Is Maintaining Your Health</h2>
+                <p class="hero-subtitle">Clean, fresh, and nutrient-packed juices made to support your health goals.</p>
+                <p class="hero-tagline">📍 Local drop-offs and pickups available now. Nationwide shipping coming soon!
+                </p>
+            </div>
+        </div>
+        <div class="hero-decoration"></div>
+    </section>
+
+    <!-- Products Section -->
+    <section id="products" class="products">
+        <div class="container">
+            <div class="section-header">
+                <h2>Our Signature Juices</h2>
+                <p>Each blend is carefully crafted to deliver maximum nutrition and flavor</p>
+            </div>
+            <div class="products-grid">
+                <div class="product-card" data-product-id="1" data-product-name="The Refresher"
+                    data-product-price="7.99">
+                    <div class="product-image">
+                        <img src="assets/images/Refresher Juice Bottle.png" alt="The Refresher Juice Bottle"
+                            class="product-bottle-image">
+                    </div>
+                    <h3>The Refresher</h3>
+                    <p class="product-description">A vibrant green blend that energizes and detoxifies. Perfect for
+                        starting your day with a burst of natural vitality.</p>
+                    <div class="product-ingredients">
+                        <h4>Ingredients:</h4>
+                        <div class="ingredient-tags">
+                            <span class="ingredient-tag">Granny Smith Apples</span>
+                            <span class="ingredient-tag">Key Lime</span>
+                            <span class="ingredient-tag">Cucumber</span>
+                            <span class="ingredient-tag">Ginger</span>
+                            <span class="ingredient-tag">Lemon</span>
+                        </div>
+                    </div>
+                    <div class="product-benefits">
+                        <span class="benefit">✓ Energy Boost</span>
+                        <span class="benefit">✓ Natural Detox</span>
+                        <span class="benefit">✓ Immune Support</span>
+                    </div>
+                    <div class="product-actions">
+                        <div class="quantity-selector">
+                            <button class="qty-btn minus" onclick="updateProductQuantity(1, -1)">-</button>
+                            <span class="qty-display" id="qty-1">0</span>
+                            <button class="qty-btn plus" onclick="updateProductQuantity(1, 1)">+</button>
+                        </div>
+                        <button class="btn btn-primary add-to-cart-btn"
+                            onclick="addProductToCart(1, 'The Refresher', 7.99)">Add to Cart</button>
+                    </div>
+                </div>
+                <div class="product-card" data-product-id="2" data-product-name="The Reboot" data-product-price="7.99">
+                    <div class="product-image">
+                        <img src="assets/images/Reboot Juice Bottle .png" alt="The Reboot Juice Bottle"
+                            class="product-bottle-image">
+                    </div>
+                    <h3>The Reboot</h3>
+                    <p class="product-description">A deep cleansing blend that resets your body and renews your energy.
+                        Ideal for detox and recovery.</p>
+                    <div class="product-ingredients">
+                        <h4>Ingredients:</h4>
+                        <div class="ingredient-tags">
+                            <span class="ingredient-tag">Beets</span>
+                            <span class="ingredient-tag">Granny Smith Apples</span>
+                            <span class="ingredient-tag">Lemon</span>
+                            <span class="ingredient-tag">Ginger</span>
+                        </div>
+                    </div>
+                    <div class="product-benefits">
+                        <span class="benefit">✓ Deep Cleansing</span>
+                        <span class="benefit">✓ Circulation Boost</span>
+                        <span class="benefit">✓ Liver Support</span>
+                    </div>
+                    <div class="product-actions">
+                        <div class="quantity-selector">
+                            <button class="qty-btn minus" onclick="updateProductQuantity(2, -1)">-</button>
+                            <span class="qty-display" id="qty-2">0</span>
+                            <button class="qty-btn plus" onclick="updateProductQuantity(2, 1)">+</button>
+                        </div>
+                        <button class="btn btn-primary add-to-cart-btn"
+                            onclick="addProductToCart(2, 'The Reboot', 7.99)">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Countdown Section -->
+    <section id="countdown" class="countdown-section">
+        <div class="container">
+            <div class="countdown-container">
+                <div class="countdown-card">
+                    <h3 class="countdown-title">Pre-Order Window</h3>
+                    <p class="countdown-subtitle">Order your juices before this deadline</p>
+                    <div class="countdown-display" id="preorderCountdown">
+                        <div class="countdown-unit">
+                            <span class="countdown-number" id="preorderDays">0</span>
+                            <span class="countdown-label">Days</span>
+                        </div>
+                        <div class="countdown-separator">:</div>
+                        <div class="countdown-unit">
+                            <span class="countdown-number" id="preorderHours">0</span>
+                            <span class="countdown-label">Hours</span>
+                        </div>
+                        <div class="countdown-separator">:</div>
+                        <div class="countdown-unit">
+                            <span class="countdown-number" id="preorderMinutes">0</span>
+                            <span class="countdown-label">Minutes</span>
+                        </div>
+                        <div class="countdown-separator">:</div>
+                        <div class="countdown-unit">
+                            <span class="countdown-number" id="preorderSeconds">0</span>
+                            <span class="countdown-label">Seconds</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="countdown-card">
+                    <h3 class="countdown-title">The Juic'E Drop</h3>
+                    <p class="countdown-subtitle">Your fresh juices will be available on this date</p>
+                    <div class="countdown-display" id="deliveryCountdown">
+                        <div class="countdown-unit">
+                            <span class="countdown-number" id="deliveryDays">0</span>
+                            <span class="countdown-label">Days</span>
+                        </div>
+                        <div class="countdown-separator">:</div>
+                        <div class="countdown-unit">
+                            <span class="countdown-number" id="deliveryHours">0</span>
+                            <span class="countdown-label">Hours</span>
+                        </div>
+                        <div class="countdown-separator">:</div>
+                        <div class="countdown-unit">
+                            <span class="countdown-number" id="deliveryMinutes">0</span>
+                            <span class="countdown-label">Minutes</span>
+                        </div>
+                        <div class="countdown-separator">:</div>
+                        <div class="countdown-unit">
+                            <span class="countdown-number" id="deliverySeconds">0</span>
+                            <span class="countdown-label">Seconds</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Flavor Profiles Section -->
+    <section id="flavor-profiles" class="flavor-profiles">
+        <div class="container">
+            <div class="section-header">
+                <h2>Flavor Profiles</h2>
+                <p>Discover the unique benefits and characteristics of each signature blend</p>
+            </div>
+            <div class="flavor-tabs">
+                <button class="flavor-tab active" data-flavor="refresher">The Refresher</button>
+                <button class="flavor-tab" data-flavor="reboot">The Reboot</button>
+            </div>
+            <div class="flavor-content">
+                <!-- The Refresher Content -->
+                <div class="flavor-details active" id="refresher-details">
+                    <h3 class="flavor-title">The Refresher</h3>
+                    <p class="flavor-ingredients">Green Apple · Cucumber · Lemon · Ginger · Key Lime</p>
+                    <h4 class="flavor-subtitle">A Light, Hydrating Reset</h4>
+                    <p class="flavor-description">A crisp, refreshing blend made to gently cleanse and rehydrate your
+                        body — ideal for first-time cleansers or anyone needing a light reset.</p>
+                    <h5 class="flavor-benefits-heading">What's Inside & Why It Works:</h5>
+                    <div class="ingredient-cards-grid">
+                        <div class="ingredient-card">
+                            <h6 class="ingredient-name">Green Apple</h6>
+                            <p class="ingredient-description">Naturally sweet and full of fiber, green apples help your
+                                digestion, keep your blood sugar steady, and support a healthy gut.</p>
+                        </div>
+                        <div class="ingredient-card">
+                            <h6 class="ingredient-name">Cucumber</h6>
+                            <p class="ingredient-description">Made mostly of water, cucumbers deeply hydrate your body
+                                and give your skin a healthy glow thanks to minerals like potassium.</p>
+                        </div>
+                        <div class="ingredient-card">
+                            <h6 class="ingredient-name">Lemon & Key Lime</h6>
+                            <p class="ingredient-description">These citrus fruits help your body flush out toxins,
+                                support digestion, and bring balance to your system by reducing acidity.</p>
+                        </div>
+                        <div class="ingredient-card">
+                            <h6 class="ingredient-name">Ginger</h6>
+                            <p class="ingredient-description">A warming root that's known for calming the stomach,
+                                boosting immunity, and reducing inflammation. It keeps your digestion moving and your
+                                body protected.</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- The Reboot Content -->
+                <div class="flavor-details" id="reboot-details">
+                    <h3 class="flavor-title">The Reboot</h3>
+                    <p class="flavor-ingredients">Green Apple · Beets · Lemon · Ginger</p>
+                    <h4 class="flavor-subtitle">A Bold Cleanse for Deeper Renewal</h4>
+                    <p class="flavor-description">This earthy, energizing blend supports deeper detox — perfect for more
+                        experienced cleansers or after high-stress periods.</p>
+                    <h5 class="flavor-benefits-heading">What's Inside & Why It Works:</h5>
+                    <div class="ingredient-cards-grid">
+                        <div class="ingredient-card">
+                            <h6 class="ingredient-name">Beets</h6>
+                            <p class="ingredient-description">Beets are a natural detox hero. They help clean your
+                                liver, improve blood flow, and give your body a boost of lasting energy.</p>
+                        </div>
+                        <div class="ingredient-card">
+                            <h6 class="ingredient-name">Green Apple</h6>
+                            <p class="ingredient-description">Adds a naturally sweet flavor while helping with digestion
+                                and supporting a healthy gut thanks to its fiber and antioxidants.</p>
+                        </div>
+                        <div class="ingredient-card">
+                            <h6 class="ingredient-name">Lemon</h6>
+                            <p class="ingredient-description">Helps your body flush out waste and supports your liver.
+                                It also brings a fresh, clean taste that helps your system feel balanced.</p>
+                        </div>
+                        <div class="ingredient-card">
+                            <h6 class="ingredient-name">Ginger</h6>
+                            <p class="ingredient-description">A powerful root that fights inflammation, supports
+                                digestion, and helps your body stay strong against sickness.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Juice Cleanse Packages Section -->
+    <section id="packages" class="packages">
+        <div class="container">
+            <div class="section-header">
+                <h2>Juice Cleanse Packages</h2>
+                <p>Choose the perfect package duration for your wellness goals</p>
+            </div>
+            <div class="packages-grid">
+                <!-- 1-Day Package -->
+                <div class="package-card" data-package-id="1" data-package-days="1" data-package-bottles="8"
+                    data-package-price="60">
+                    <div class="package-header">
+                        <h3>1-Day Package</h3>
+                        <div class="package-details">
+                            <span class="package-bottles">8 Bottles</span>
+                            <span class="package-price">$60</span>
+                        </div>
+                    </div>
+                    <div class="package-description">
+                        <h4 class="package-desc-title">A Gentle Jumpstart</h4>
+                        <p class="package-desc-text">A one-day reset for hydration and recalibration. Perfect for
+                            beginners or busy days. Think of it as a spa day—for your insides.</p>
+                    </div>
+                    <div class="package-flavor-selection">
+                        <label class="package-flavor-label">Choose Your Flavor:</label>
+                        <div class="flavor-options">
+                            <label class="flavor-option">
+                                <input type="radio" name="package-1-flavor" value="refresher" checked>
+                                <span class="flavor-name">The Refresher</span>
+                                <span class="flavor-checkmark">✓</span>
+                            </label>
+                            <label class="flavor-option">
+                                <input type="radio" name="package-1-flavor" value="reboot">
+                                <span class="flavor-name">The Reboot</span>
+                                <span class="flavor-checkmark">✓</span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="package-actions">
+                        <button class="btn btn-primary add-package-btn"
+                            onclick="addPackageToCart(1, '1-Day Package', 60, 8)">Add 1-Day Package to Cart</button>
+                        <button class="btn btn-secondary learn-more-btn">Learn More</button>
+                    </div>
+                </div>
+
+                <!-- 2-Day Package -->
+                <div class="package-card" data-package-id="2" data-package-days="2" data-package-bottles="16"
+                    data-package-price="120">
+                    <div class="package-header">
+                        <h3>2-Day Package</h3>
+                        <div class="package-details">
+                            <span class="package-bottles">16 Bottles</span>
+                            <span class="package-price">$120</span>
+                        </div>
+                    </div>
+                    <div class="package-description">
+                        <h4 class="package-desc-title">Balanced. Intentional. Effective.</h4>
+                        <p class="package-desc-text">A two-day package for reawakening and energizing your body. Ideal
+                            for a weekend detox or midweek realignment.</p>
+                    </div>
+                    <div class="package-flavor-selection">
+                        <label class="package-flavor-label">Choose Your Flavor:</label>
+                        <div class="flavor-options">
+                            <label class="flavor-option">
+                                <input type="radio" name="package-2-flavor" value="refresher" checked>
+                                <span class="flavor-name">The Refresher</span>
+                                <span class="flavor-checkmark">✓</span>
+                            </label>
+                            <label class="flavor-option">
+                                <input type="radio" name="package-2-flavor" value="reboot">
+                                <span class="flavor-name">The Reboot</span>
+                                <span class="flavor-checkmark">✓</span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="package-actions">
+                        <button class="btn btn-primary add-package-btn"
+                            onclick="addPackageToCart(2, '2-Day Package', 120, 16)">Add 2-Day Package to Cart</button>
+                        <button class="btn btn-secondary learn-more-btn">Learn More</button>
+                    </div>
+                </div>
+
+                <!-- 3-Day Package (Most Popular) -->
+                <div class="package-card package-popular" data-package-id="3" data-package-days="3"
+                    data-package-bottles="24" data-package-price="175">
+                    <div class="popular-badge">Most Popular</div>
+                    <div class="package-header">
+                        <h3>3-Day Package</h3>
+                        <div class="package-details">
+                            <span class="package-bottles">24 Bottles</span>
+                            <span class="package-price">$175</span>
+                        </div>
+                    </div>
+                    <div class="package-description">
+                        <h4 class="package-desc-title">Your Full-Body Refresh</h4>
+                        <p class="package-desc-text">A three-day journey for detox, hydration, and renewal. Feel
+                            lighter, brighter, and fully recharged. Wellness that flows with you—mind, body, and spirit.
+                        </p>
+                    </div>
+                    <div class="package-flavor-selection">
+                        <label class="package-flavor-label">Choose Your Flavor:</label>
+                        <div class="flavor-options">
+                            <label class="flavor-option">
+                                <input type="radio" name="package-3-flavor" value="refresher" checked>
+                                <span class="flavor-name">The Refresher</span>
+                                <span class="flavor-checkmark">✓</span>
+                            </label>
+                            <label class="flavor-option">
+                                <input type="radio" name="package-3-flavor" value="reboot">
+                                <span class="flavor-name">The Reboot</span>
+                                <span class="flavor-checkmark">✓</span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="package-actions">
+                        <button class="btn btn-primary add-package-btn"
+                            onclick="addPackageToCart(3, '3-Day Package', 175, 24)">Add 3-Day Package to Cart</button>
+                        <button class="btn btn-secondary learn-more-btn">Learn More</button>
+                    </div>
+                </div>
+
+                <!-- 5-Day Package -->
+                <div class="package-card" data-package-id="4" data-package-days="5" data-package-bottles="40"
+                    data-package-price="290">
+                    <div class="package-header">
+                        <h3>5-Day Package</h3>
+                        <div class="package-details">
+                            <span class="package-bottles">40 Bottles</span>
+                            <span class="package-price">$290</span>
+                        </div>
+                    </div>
+                    <div class="package-description">
+                        <h4 class="package-desc-title">🌺 Elevated Restoration</h4>
+                        <p class="package-desc-text">Designed for those ready to go deeper, the 5-Day Package supports
+                            cellular rejuvenation and sustained energy. Let go of the noise, flood your body with
+                            nutrients, and return to your natural flow.</p>
+                        <p class="package-tagline">The perfect companion for a wellness-focused week.</p>
+                    </div>
+                    <div class="package-flavor-selection">
+                        <label class="package-flavor-label">Choose Your Flavor:</label>
+                        <div class="flavor-options">
+                            <label class="flavor-option">
+                                <input type="radio" name="package-4-flavor" value="refresher" checked>
+                                <span class="flavor-name">The Refresher</span>
+                                <span class="flavor-checkmark">✓</span>
+                            </label>
+                            <label class="flavor-option">
+                                <input type="radio" name="package-4-flavor" value="reboot">
+                                <span class="flavor-name">The Reboot</span>
+                                <span class="flavor-checkmark">✓</span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="package-actions">
+                        <button class="btn btn-primary add-package-btn"
+                            onclick="addPackageToCart(4, '5-Day Package', 290, 40)">Add 5-Day Package to Cart</button>
+                        <button class="btn btn-secondary learn-more-btn">Learn More</button>
+                    </div>
+                </div>
+
+                <!-- 7-Day Package -->
+                <div class="package-card" data-package-id="5" data-package-days="7" data-package-bottles="56"
+                    data-package-price="400">
+                    <div class="package-header">
+                        <h3>7-Day Package</h3>
+                        <div class="package-details">
+                            <span class="package-bottles">56 Bottles</span>
+                            <span class="package-price">$400</span>
+                        </div>
+                    </div>
+                    <div class="package-description">
+                        <h4 class="package-desc-title">😊 Complete Transformation</h4>
+                        <p class="package-desc-text">A week of vibrant blends crafted for those committed to deep
+                            healing and reset. This journey nourishes every cell, sharpens your focus, and cultivates
+                            clarity—from your first sip to your last sunrise.</p>
+                        <p class="package-tagline">Not just a package—this is a wellness ritual.</p>
+                    </div>
+                    <div class="package-flavor-selection">
+                        <label class="package-flavor-label">Choose Your Flavor:</label>
+                        <div class="flavor-options">
+                            <label class="flavor-option">
+                                <input type="radio" name="package-5-flavor" value="refresher" checked>
+                                <span class="flavor-name">The Refresher</span>
+                                <span class="flavor-checkmark">✓</span>
+                            </label>
+                            <label class="flavor-option">
+                                <input type="radio" name="package-5-flavor" value="reboot">
+                                <span class="flavor-name">The Reboot</span>
+                                <span class="flavor-checkmark">✓</span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="package-actions">
+                        <button class="btn btn-primary add-package-btn"
+                            onclick="addPackageToCart(5, '7-Day Package', 400, 56)">Add 7-Day Package to Cart</button>
+                        <button class="btn btn-secondary learn-more-btn">Learn More</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about">
+        <div class="container">
+            <div class="about-content">
+                <div class="about-text">
+                    <h2>Why Juic'E Drinks?</h2>
+                    <p class="about-lead">At Juic'E Drinks, we believe juice should be enjoyed the way nature intended —
+                        raw, fresh, and uncompromised. That's why we never expose our juices to high heat or excessive
+                        processing. These methods can diminish natural flavor and take away from the integrity of the
+                        ingredients.</p>
+                    <p>Our approach is simple: cold-pressed juice made with care and left in its most natural state.
+                        Every bottle is carefully crafted to deliver a pure, vibrant juice experience that you can truly
+                        savor.</p>
+                    <p class="about-tagline">100% organic. Raw. Cold-pressed. Exactly as it should be.</p>
+                    <p class="about-tagline">No additives. No preservatives. No shortcuts.</p>
+                    <p class="about-tagline">Nourish your body with raw cold-pressed juice — a true gift from nature.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section id="testimonials" class="testimonials">
+        <div class="container">
+            <div class="section-header">
+                <h2>What Our Customers Say</h2>
+                <p>Real feedback from real customers</p>
+            </div>
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <div class="testimonial-stars">★★★★★</div>
+                    <p class="testimonial-text">"The juice was amazing and packed professionally. I would buy again and
+                        recommend."</p>
+                    <p class="testimonial-author">- Sarah M.</p>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-stars">★★★★★</div>
+                    <p class="testimonial-text">"5 stars all the way. Due to a crazy busy schedule, these juices were a
+                        life saver. I got all the nutrients that I was missing plus more."</p>
+                    <p class="testimonial-author">- Michael T.</p>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-stars">★★★★★</div>
+                    <p class="testimonial-text">"Very impressed with quality and taste. I get to drink healthy juice
+                        without the mess and clean up associated with juicing!! Will be buying again."</p>
+                    <p class="testimonial-author">- Jennifer L.</p>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-stars">★★★★★</div>
+                    <p class="testimonial-text">"The Reboot helped me reset after a stressful period. I feel lighter,
+                        more focused, and my skin is glowing!"</p>
+                    <p class="testimonial-author">- Lisa T.</p>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-stars">★★★★★</div>
+                    <p class="testimonial-text">"Customer service is outstanding and the juices are always fresh. This
+                        has become my go-to for healthy living!"</p>
+                    <p class="testimonial-author">- David K.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section id="faq" class="faq">
+        <div class="container">
+            <div class="section-header">
+                <h2>Frequently Asked Questions</h2>
+                <p>Everything you need to know</p>
+            </div>
+            <div class="faq-content">
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>DO YOU SHIP?</span>
+                        <span class="faq-toggle">+</span>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Yes, we ship to all 50 states in the United States. Shipments take on average 1-3 days for
+                            processing and then once your order is shipped it will take on average 1-3 days to arrive to
+                            you. Shipments are sent out Monday, Tuesday & Wednesday of each week.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>HOW DOES THE JUICE STAY COLD DURING TRANSIT?</span>
+                        <span class="faq-toggle">+</span>
+                    </button>
+                    <div class="faq-answer">
+                        <p>All Juices are shipped frozen inside 2 inch thick styrofoam lined boxes to keep cold in
+                            transit.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>HOW DO I STORE MY JUICE?</span>
+                        <span class="faq-toggle">+</span>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Upon arrival, we suggest to put your juices right back into the freezer until you are ready
+                            to drink them. The juices will keep fresh for up to 6 months frozen.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>HOW DO I THAW THE JUICE?</span>
+                        <span class="faq-toggle">+</span>
+                    </button>
+                    <div class="faq-answer">
+                        <p>The best way to thaw your Juices is to rotate from the freezer to the fridge 24-48 hours
+                            before you plan to drink them. If you're running low on time you can set the juice out on
+                            the counter or place in a warm bowl of water for a faster thaw.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>HOW DO I KNOW WHICH JUICE IS RIGHT FOR ME?</span>
+                        <span class="faq-toggle">+</span>
+                    </button>
+                    <div class="faq-answer">
+                        <p>All Juices have the listed benefits on the product page to help you align your goals with
+                            your selection. If you're still having trouble deciding, feel free to reach out using the
+                            contact form and we will assist you in finding what's right for you :)</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter Section -->
+    <section class="newsletter">
+        <div class="container">
+            <div class="newsletter-content">
+                <div class="newsletter-icon">📩</div>
+                <h2>Join Our Mailing List</h2>
+                <p>Be the first to hear about sales, new products, and wellness tips</p>
+                <form class="newsletter-form" id="newsletterForm">
+                    <input type="email" placeholder="Enter your email address" required>
+                    <button type="submit" class="btn btn-primary">Subscribe</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Shopping Cart Modal -->
+    <div class="cart-modal" id="cartModal">
+        <div class="cart-modal-content">
+            <div class="cart-header">
+                <h2>Your Cart</h2>
+                <button class="close-cart" id="closeCart">&times;</button>
+            </div>
+            <div class="cart-items" id="cartItems">
+                <p class="empty-cart-message">Your cart is empty</p>
+            </div>
+            <div class="cart-footer">
+                <div class="cart-summary">
+                    <div class="cart-summary-row">
+                        <span>Subtotal:</span>
+                        <span>$<span id="cartSubtotal">0.00</span></span>
+                    </div>
+                    <div class="cart-summary-row cart-total-row">
+                        <span>Total:</span>
+                        <span>$<span id="cartTotal">0.00</span></span>
+                    </div>
+                </div>
+                <div class="cart-footer-buttons">
+                    <button class="btn btn-secondary clear-cart-btn" id="clearCartBtn">Clear Cart</button>
+                    <button class="btn btn-primary checkout-btn" id="checkoutBtn" disabled>Proceed to Checkout</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Checkout Modal -->
+    <div class="checkout-modal" id="checkoutModal">
+        <div class="checkout-modal-content">
+            <div class="checkout-header">
+                <h2>Checkout</h2>
+                <button class="close-checkout" id="closeCheckout">&times;</button>
+            </div>
+            <div class="checkout-modal-body">
+                <div class="checkout-form-wrapper">
+                    <form id="checkoutModalForm" class="checkout-form">
+                        <h3>Shipping Information</h3>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="modalFirstName">First Name *</label>
+                                <input type="text" id="modalFirstName" name="firstName" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="modalLastName">Last Name *</label>
+                                <input type="text" id="modalLastName" name="lastName" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="modalEmail">Email *</label>
+                            <input type="email" id="modalEmail" name="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="modalAddress">Street Address *</label>
+                            <input type="text" id="modalAddress" name="address" required>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="modalCity">City *</label>
+                                <input type="text" id="modalCity" name="city" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="modalState">State *</label>
+                                <select id="modalState" name="state" required>
+                                    <option value="">Select State</option>
+                                    <option value="AL">Alabama</option>
+                                    <option value="AK">Alaska</option>
+                                    <option value="AZ">Arizona</option>
+                                    <option value="AR">Arkansas</option>
+                                    <option value="CA">California</option>
+                                    <option value="CO">Colorado</option>
+                                    <option value="CT">Connecticut</option>
+                                    <option value="DE">Delaware</option>
+                                    <option value="FL">Florida</option>
+                                    <option value="GA">Georgia</option>
+                                    <option value="HI">Hawaii</option>
+                                    <option value="ID">Idaho</option>
+                                    <option value="IL">Illinois</option>
+                                    <option value="IN">Indiana</option>
+                                    <option value="IA">Iowa</option>
+                                    <option value="KS">Kansas</option>
+                                    <option value="KY">Kentucky</option>
+                                    <option value="LA">Louisiana</option>
+                                    <option value="ME">Maine</option>
+                                    <option value="MD">Maryland</option>
+                                    <option value="MA">Massachusetts</option>
+                                    <option value="MI">Michigan</option>
+                                    <option value="MN">Minnesota</option>
+                                    <option value="MS">Mississippi</option>
+                                    <option value="MO">Missouri</option>
+                                    <option value="MT">Montana</option>
+                                    <option value="NE">Nebraska</option>
+                                    <option value="NV">Nevada</option>
+                                    <option value="NH">New Hampshire</option>
+                                    <option value="NJ">New Jersey</option>
+                                    <option value="NM">New Mexico</option>
+                                    <option value="NY">New York</option>
+                                    <option value="NC">North Carolina</option>
+                                    <option value="ND">North Dakota</option>
+                                    <option value="OH">Ohio</option>
+                                    <option value="OK">Oklahoma</option>
+                                    <option value="OR">Oregon</option>
+                                    <option value="PA">Pennsylvania</option>
+                                    <option value="RI">Rhode Island</option>
+                                    <option value="SC">South Carolina</option>
+                                    <option value="SD">South Dakota</option>
+                                    <option value="TN">Tennessee</option>
+                                    <option value="TX">Texas</option>
+                                    <option value="UT">Utah</option>
+                                    <option value="VT">Vermont</option>
+                                    <option value="VA">Virginia</option>
+                                    <option value="WA">Washington</option>
+                                    <option value="WV">West Virginia</option>
+                                    <option value="WI">Wisconsin</option>
+                                    <option value="WY">Wyoming</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="modalZipCode">ZIP Code *</label>
+                                <input type="text" id="modalZipCode" name="zipCode" pattern="[0-9]{5}" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="modalPhone">Phone Number *</label>
+                            <input type="tel" id="modalPhone" name="phone" required>
+                        </div>
+
+                        <h3>Payment Information</h3>
+                        <p class="payment-info-text">You will be redirected to Stripe's secure checkout page to complete
+                            your payment.</p>
+                        <p class="payment-security-note">🔒 Secure payment powered by Stripe</p>
+
+                        <button type="submit" class="btn btn-primary submit-payment-btn" id="submitModalPayment">
+                            <span id="modal-button-text">Proceed to Secure Checkout - $<span
+                                    id="modalPaymentTotal">0.00</span></span>
+                            <span id="modal-spinner" class="spinner hidden"></span>
+                        </button>
+                    </form>
+                </div>
+                <div class="checkout-order-summary">
+                    <h3>Order Summary</h3>
+                    <div id="checkoutModalItems"></div>
+                    <div class="checkout-summary-totals">
+                        <div class="checkout-summary-row">
+                            <span>Subtotal:</span>
+                            <span>$<span id="checkoutModalSubtotal">0.00</span></span>
+                        </div>
+                        <div class="checkout-summary-row">
+                            <span>Shipping:</span>
+                            <span>$<span id="checkoutModalShipping">5.99</span></span>
+                        </div>
+                        <div class="checkout-summary-row checkout-total-row">
+                            <span>Total:</span>
+                            <span>$<span id="checkoutModalTotal">0.00</span></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Checkout Section -->
+    <section id="checkout" class="checkout">
+        <div class="container">
+            <div class="section-header">
+                <h2>Checkout</h2>
+                <p>Complete your order with secure payment</p>
+            </div>
+            <div class="checkout-content">
+                <div class="checkout-form-container">
+                    <form id="checkoutForm" class="checkout-form">
+                        <h3>Shipping Information</h3>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="firstName">First Name *</label>
+                                <input type="text" id="firstName" name="firstName" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="lastName">Last Name *</label>
+                                <input type="text" id="lastName" name="lastName" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email *</label>
+                            <input type="email" id="checkoutEmail" name="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="address">Street Address *</label>
+                            <input type="text" id="address" name="address" required>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="city">City *</label>
+                                <input type="text" id="city" name="city" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="state">State *</label>
+                                <select id="state" name="state" required>
+                                    <option value="">Select State</option>
+                                    <option value="AL">Alabama</option>
+                                    <option value="AK">Alaska</option>
+                                    <option value="AZ">Arizona</option>
+                                    <option value="AR">Arkansas</option>
+                                    <option value="CA">California</option>
+                                    <option value="CO">Colorado</option>
+                                    <option value="CT">Connecticut</option>
+                                    <option value="DE">Delaware</option>
+                                    <option value="FL">Florida</option>
+                                    <option value="GA">Georgia</option>
+                                    <option value="HI">Hawaii</option>
+                                    <option value="ID">Idaho</option>
+                                    <option value="IL">Illinois</option>
+                                    <option value="IN">Indiana</option>
+                                    <option value="IA">Iowa</option>
+                                    <option value="KS">Kansas</option>
+                                    <option value="KY">Kentucky</option>
+                                    <option value="LA">Louisiana</option>
+                                    <option value="ME">Maine</option>
+                                    <option value="MD">Maryland</option>
+                                    <option value="MA">Massachusetts</option>
+                                    <option value="MI">Michigan</option>
+                                    <option value="MN">Minnesota</option>
+                                    <option value="MS">Mississippi</option>
+                                    <option value="MO">Missouri</option>
+                                    <option value="MT">Montana</option>
+                                    <option value="NE">Nebraska</option>
+                                    <option value="NV">Nevada</option>
+                                    <option value="NH">New Hampshire</option>
+                                    <option value="NJ">New Jersey</option>
+                                    <option value="NM">New Mexico</option>
+                                    <option value="NY">New York</option>
+                                    <option value="NC">North Carolina</option>
+                                    <option value="ND">North Dakota</option>
+                                    <option value="OH">Ohio</option>
+                                    <option value="OK">Oklahoma</option>
+                                    <option value="OR">Oregon</option>
+                                    <option value="PA">Pennsylvania</option>
+                                    <option value="RI">Rhode Island</option>
+                                    <option value="SC">South Carolina</option>
+                                    <option value="SD">South Dakota</option>
+                                    <option value="TN">Tennessee</option>
+                                    <option value="TX">Texas</option>
+                                    <option value="UT">Utah</option>
+                                    <option value="VT">Vermont</option>
+                                    <option value="VA">Virginia</option>
+                                    <option value="WA">Washington</option>
+                                    <option value="WV">West Virginia</option>
+                                    <option value="WI">Wisconsin</option>
+                                    <option value="WY">Wyoming</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="zipCode">ZIP Code *</label>
+                                <input type="text" id="zipCode" name="zipCode" pattern="[0-9]{5}" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Phone Number *</label>
+                            <input type="tel" id="phone" name="phone" required>
+                        </div>
+
+                        <h3>Payment Information</h3>
+                        <p class="payment-info-text">You will be redirected to Stripe's secure checkout page to complete
+                            your payment.</p>
+                        <p class="payment-security-note">🔒 Secure payment powered by Stripe</p>
+
+                        <button type="submit" class="btn btn-primary submit-payment-btn" id="submitPayment">
+                            <span id="button-text">Proceed to Secure Checkout - $<span
+                                    id="paymentTotal">0.00</span></span>
+                            <span id="spinner" class="spinner hidden"></span>
+                        </button>
+                    </form>
+                </div>
+                <div class="order-summary">
+                    <h3>Order Summary</h3>
+                    <div id="orderSummaryItems"></div>
+                    <div class="summary-totals">
+                        <div class="summary-row">
+                            <span>Subtotal:</span>
+                            <span>$<span id="summarySubtotal">0.00</span></span>
+                        </div>
+                        <div class="summary-row">
+                            <span>Shipping:</span>
+                            <span>$<span id="summaryShipping">5.99</span></span>
+                        </div>
+                        <div class="summary-row total-row">
+                            <span>Total:</span>
+                            <span>$<span id="summaryTotal">0.00</span></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <div class="section-header">
+                <h2>Get In Touch</h2>
+                <p>Have questions? We'd love to hear from you</p>
+            </div>
+            <div class="contact-content">
+                <form class="contact-form">
+                    <div class="form-group">
+                        <input type="text" id="name" name="name" placeholder="Your Name" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="email" id="email" name="email" placeholder="Your Email" required>
+                    </div>
+                    <div class="form-group">
+                        <textarea id="message" name="message" rows="5" placeholder="Your Message" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Send Message</button>
+                </form>
+                <div class="contact-info">
+                    <div class="info-item">
+                        <span class="info-icon">📧</span>
+                        <div>
+                            <h4>Email</h4>
+                            <p>hello@juicedrinks.com</p>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-icon">📱</span>
+                        <div>
+                            <h4>Phone</h4>
+                            <p>470-242-6327</p>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-icon">📍</span>
+                        <div>
+                            <h4>Address</h4>
+                            <p>Atlanta, GA</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Juic'E Drinks</h3>
+                    <p>💯 The Most Refreshing Thing You Had All Day • 100% Natural • Cold Pressed</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#products">Products</a></li>
+                        <li><a href="#packages">Packages</a></li>
+                        <li><a href="#about">About</a></li>
+                        <li><a href="#faq">FAQ</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Follow Us</h4>
+                    <div class="social-links">
+                        <a href="#" aria-label="Facebook">Facebook</a>
+                        <a href="#" aria-label="Instagram">Instagram</a>
+                        <a href="#" aria-label="Twitter">Twitter</a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Juic'E Drinks. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

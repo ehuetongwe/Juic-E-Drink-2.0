@@ -1,0 +1,26 @@
+{
+  "name": "juice-drinks-website",
+  "version": "1.0.0",
+  "description": "Juic'E Drinks e-commerce website with Stripe payment integration",
+  "main": "index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "@sendgrid/mail": "^7.7.0",
+    "@supabase/supabase-js": "^2.98.0",
+    "dotenv": "^17.3.1",
+    "stripe": "^14.0.0",
+    "twilio": "^4.19.0"
+  },
+  "keywords": [
+    "e-commerce",
+    "stripe",
+    "juice"
+  ],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "supabase": "^2.76.15"
+  }
+}

@@ -18,11 +18,22 @@ A modern, clean, and responsive e-commerce website for an online juice business 
 ## File Structure
 
 ```
-Juic'E Drinks website 2/
-├── index.html          # Main HTML file
-├── styles.css          # All styling and responsive design
-├── script.js           # JavaScript for interactivity
-└── README.md           # This file
+Juic'E Drinks website 2.0/
+├── index.html              # Main HTML file
+├── styles.css              # All styling and responsive design
+├── script.js               # JavaScript for interactivity
+├── netlify.toml            # Netlify configuration
+├── package.json            # Dependencies
+├── netlify/
+│   └── functions/          # Serverless functions
+├── assets/                 # Static assets
+├── docs/                   # Documentation
+│   ├── DEPLOYMENT_GUIDE.md
+│   ├── STRIPE_SETUP.md
+│   ├── AUTOMATED_NOTIFICATIONS_SETUP.md
+│   ├── WEBHOOK_TROUBLESHOOTING.md
+│   └── ENV_SETUP.md
+└── README.md               # This file
 ```
 
 ## Getting Started
@@ -66,10 +77,10 @@ To enable real payments, you need to:
 
 1. **Get Stripe Keys**: Sign up at [Stripe.com](https://stripe.com) and get your API keys
 2. **Update Frontend**: Replace the placeholder Stripe key in `script.js`
-3. **Create Backend**: Set up a backend server to create PaymentIntents (see `STRIPE_SETUP.md`)
+3. **Create Backend**: Set up a backend server to create PaymentIntents (see `docs/STRIPE_SETUP.md`)
 4. **Test**: Use Stripe test cards to verify the integration
 
-See `STRIPE_SETUP.md` for detailed instructions.
+See `docs/STRIPE_SETUP.md` for detailed instructions.
 
 ## Current Status
 
@@ -77,7 +88,7 @@ See `STRIPE_SETUP.md` for detailed instructions.
 ✅ Checkout form with shipping address  
 ✅ State selection (all 50 US states)  
 ✅ Stripe Elements integration (frontend ready)  
-⚠️ Backend payment processing required (see STRIPE_SETUP.md)
+⚠️ Backend payment processing required (see docs/STRIPE_SETUP.md)
 
 ## Next Steps
 

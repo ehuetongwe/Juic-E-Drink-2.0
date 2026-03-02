@@ -1,0 +1,21 @@
+# Netlify Configuration File
+
+[build]
+  # Publish directory (where your HTML/CSS/JS files are)
+  publish = "."
+
+# Function configuration
+[functions]
+  # Node.js version for serverless functions
+  node_bundler = "esbuild"
+  
+  # Webhook function needs raw body for Stripe signature verification
+  [functions.stripe-webhook]
+    included_files = ["netlify/functions/stripe-webhook.js"]
+
+# Redirects - ensure API routes work correctly
+[[redirects]]
+  from = "/api/*"
+  to = "/.netlify/functions/:splat"
+  status = 200
+
