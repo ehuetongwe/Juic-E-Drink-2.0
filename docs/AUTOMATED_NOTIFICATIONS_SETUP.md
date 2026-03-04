@@ -54,7 +54,7 @@ Customer Payment → Stripe Checkout → Stripe Webhook → Your Netlify Functio
 2. Choose one of these options:
    - **Single Sender Verification** (easiest for testing)
      - Click **Create New Sender**
-     - Enter your business email (e.g., `orders@juicedrinks.com`)
+     - Enter your business email (e.g., `support@juicedrinks.biz`)
      - Fill in all required fields
      - Verify the email by clicking the link sent to your inbox
    - **Domain Authentication** (recommended for production)
@@ -64,7 +64,7 @@ Customer Payment → Stripe Checkout → Stripe Webhook → Your Netlify Functio
 ### 1.4 Note Your From Email
 
 - Use the verified sender email address
-- Example: `orders@juicedrinks.com` or `noreply@juicedrinks.com`
+- Example: `support@juicedrinks.biz` or `noreply@juicedrinks.biz`
 
 ---
 
@@ -143,7 +143,7 @@ Customer Payment → Stripe Checkout → Stripe Webhook → Your Netlify Functio
 | `STRIPE_SECRET_KEY` | `sk_test_...` or `sk_live_...` | Stripe Dashboard → Developers → API keys |
 | `STRIPE_WEBHOOK_SECRET` | `whsec_...` | Stripe Dashboard → Developers → Webhooks → Your endpoint |
 | `SENDGRID_API_KEY` | `SG.xxx...` | SendGrid Dashboard → Settings → API Keys |
-| `SENDGRID_FROM_EMAIL` | `orders@yourdomain.com` | Your verified SendGrid sender email |
+| `SENDGRID_FROM_EMAIL` | `support@juicedrinks.biz` | Your verified SendGrid sender email |
 | `TWILIO_ACCOUNT_SID` | `ACxxx...` | Twilio Console Dashboard |
 | `TWILIO_AUTH_TOKEN` | `xxx...` | Twilio Console Dashboard (click View) |
 | `TWILIO_PHONE_NUMBER` | `+1234567890` | Your Twilio phone number |
@@ -159,7 +159,7 @@ Customer Payment → Stripe Checkout → Stripe Webhook → Your Netlify Functio
 STRIPE_SECRET_KEY=sk_live_51RkExhJyOFzlYZ85...
 STRIPE_WEBHOOK_SECRET=whsec_xxxxxxxxxxxxxxxxxxxxx
 SENDGRID_API_KEY=SG.xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-SENDGRID_FROM_EMAIL=orders@juicedrinks.com
+SENDGRID_FROM_EMAIL=support@juicedrinks.biz
 TWILIO_ACCOUNT_SID=ACxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 TWILIO_AUTH_TOKEN=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 TWILIO_PHONE_NUMBER=+15551234567
