@@ -925,8 +925,12 @@
                 <p>Have questions? We'd love to hear from you</p>
             </div>
             <div class="contact-content">
-                <form class="contact-form" name="contact" method="POST" data-netlify="true">
+                <form class="contact-form" name="contact" method="POST" data-netlify="true"
+                    data-netlify-honeypot="bot-field">
                     <input type="hidden" name="form-name" value="contact" />
+                    <p class="hidden" style="display: none;">
+                        <label>Don’t fill this out if you're human: <input name="bot-field" /></label>
+                    </p>
                     <div class="form-group">
                         <input type="text" id="name" name="name" placeholder="Your Name" required>
                     </div>
@@ -936,7 +940,6 @@
                     <div class="form-group">
                         <textarea id="message" name="message" rows="5" placeholder="Your Message" required></textarea>
                     </div>
-                    <div data-netlify-recaptcha="true"></div>
                     <button type="submit" class="btn btn-primary">Send Message</button>
                 </form>
                 <div class="contact-info">

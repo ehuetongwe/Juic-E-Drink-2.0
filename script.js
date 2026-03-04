@@ -930,12 +930,15 @@ if (contactForm) {
             method: 'POST',
             headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
             body: data.toString()
-        }).then(() => {
+        }).then((response) => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
             alert('Thank you for your message! We\'ll get back to you soon at support@juicedrinks.biz.');
             contactForm.reset();
         }).catch((error) => {
             alert('There was an issue sending your message. Please try again later.');
-            console.error(error);
+            console.error('Form submission error:', error);
         }).finally(() => {
             if (submitBtn) {
                 submitBtn.disabled = false;
