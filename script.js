@@ -926,13 +926,14 @@ if (contactForm) {
             data.append(pair[0], pair[1]);
         }
 
-        fetch('/', {
+        fetch('/.netlify/functions/contact', {
             method: 'POST',
             headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
             body: data.toString()
-        }).then((response) => {
+        }).then(async (response) => {
             if (!response.ok) {
-                throw new Error('Network response was not ok');
+                const errData = await response.json().catch(() => ({}));
+                throw new Error(errData.error || 'Network response was not ok');
             }
             alert('Thank you for your message! We\'ll get back to you soon at support@juicedrinks.biz.');
             contactForm.reset();
