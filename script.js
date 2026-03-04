@@ -16,7 +16,7 @@ function initializeStripe() {
         console.warn('Stripe not initialized: Please add your Stripe publishable key in script.js');
         return;
     }
-    
+
     try {
         stripe = Stripe(STRIPE_PUBLISHABLE_KEY);
     } catch (error) {
@@ -29,9 +29,9 @@ function updateProductQuantity(productId, change) {
     if (!productQuantities[productId]) {
         productQuantities[productId] = 0;
     }
-    
+
     productQuantities[productId] = Math.max(0, productQuantities[productId] + change);
-    
+
     // Update display
     const qtyDisplay = document.getElementById(`qty-${productId}`);
     if (qtyDisplay) {
@@ -41,14 +41,14 @@ function updateProductQuantity(productId, change) {
 
 function addProductToCart(productId, productName, productPrice) {
     const quantity = productQuantities[productId] || 1;
-    
+
     if (quantity === 0) {
         alert('Please select a quantity first');
         return;
     }
-    
+
     const existingItem = cart.find(item => item.id === productId);
-    
+
     if (existingItem) {
         existingItem.quantity += quantity;
     } else {
@@ -59,17 +59,17 @@ function addProductToCart(productId, productName, productPrice) {
             quantity: quantity
         });
     }
-    
+
     // Reset quantity after adding
     productQuantities[productId] = 0;
     const qtyDisplay = document.getElementById(`qty-${productId}`);
     if (qtyDisplay) {
         qtyDisplay.textContent = '0';
     }
-    
+
     updateCartUI();
     saveCartToLocalStorage();
-    
+
     // Show feedback
     const productCard = document.querySelector(`[data-product-id="${productId}"]`);
     if (productCard) {
@@ -96,12 +96,12 @@ function getSelectedFlavor(packageId) {
 function addPackageToCart(packageId, packageName, packagePrice, bottleCount) {
     const selectedFlavor = getSelectedFlavor(packageId);
     const packageDisplayName = `${packageName} – ${selectedFlavor} (x${bottleCount})`;
-    
+
     // Use a unique ID for packages (e.g., 100 + packageId to avoid conflicts with products)
     const packageCartId = 100 + packageId;
-    
+
     const existingItem = cart.find(item => item.id === packageCartId && item.name === packageDisplayName);
-    
+
     if (existingItem) {
         existingItem.quantity += 1;
     } else {
@@ -114,10 +114,10 @@ function addPackageToCart(packageId, packageName, packagePrice, bottleCount) {
             bottles: bottleCount
         });
     }
-    
+
     updateCartUI();
     saveCartToLocalStorage();
-    
+
     // Show feedback
     const packageCard = document.querySelector(`[data-package-id="${packageId}"]`);
     if (packageCard) {
@@ -130,7 +130,7 @@ function addPackageToCart(packageId, packageName, packagePrice, bottleCount) {
             btn.style.background = '';
         }, 1500);
     }
-    
+
     // Open cart modal to show the added item
     openCart();
 }
@@ -175,12 +175,12 @@ function updateCartUI() {
     const checkoutBtn = document.getElementById('checkoutBtn');
     const clearCartBtn = document.getElementById('clearCartBtn');
     const cartButton = document.getElementById('cartButton');
-    
+
     // Update cart count
     const count = getCartCount();
     const previousCount = parseInt(cartCount.textContent) || 0;
     cartCount.textContent = count;
-    
+
     // Add visual feedback when items are added
     if (count > previousCount && count > 0) {
         // Animate cart icon
@@ -190,7 +190,7 @@ function updateCartUI() {
                 cartButton.classList.remove('cart-updated');
             }, 600);
         }
-        
+
         // Animate cart count badge
         if (cartCount) {
             cartCount.classList.add('count-updated');
@@ -199,7 +199,7 @@ function updateCartUI() {
             }, 600);
         }
     }
-    
+
     // Update cart items display
     if (cart.length === 0) {
         cartItems.innerHTML = '<p class="empty-cart-message">Your cart is empty</p>';
@@ -225,13 +225,13 @@ function updateCartUI() {
         checkoutBtn.disabled = false;
         if (clearCartBtn) clearCartBtn.disabled = false;
     }
-    
+
     // Update cart subtotal and total
     const subtotal = getCartTotal();
     const total = subtotal;
     if (cartSubtotal) cartSubtotal.textContent = subtotal.toFixed(2);
     cartTotal.textContent = total.toFixed(2);
-    
+
     // Update order summary if on checkout page
     updateOrderSummary();
     // Update checkout modal summary
@@ -243,7 +243,7 @@ function updateOrderSummary() {
     const summarySubtotal = document.getElementById('summarySubtotal');
     const summaryTotal = document.getElementById('summaryTotal');
     const paymentTotal = document.getElementById('paymentTotal');
-    
+
     if (summaryItems) {
         if (cart.length === 0) {
             summaryItems.innerHTML = '<p style="color: var(--text-light);">No items in cart</p>';
@@ -255,10 +255,10 @@ function updateOrderSummary() {
                 </div>
             `).join('');
         }
-        
+
         const subtotal = getCartTotal();
         const total = subtotal + SHIPPING_COST;
-        
+
         if (summarySubtotal) summarySubtotal.textContent = subtotal.toFixed(2);
         if (summaryTotal) summaryTotal.textContent = total.toFixed(2);
         if (paymentTotal) paymentTotal.textContent = total.toFixed(2);
@@ -292,13 +292,13 @@ function closeCart() {
 
 function clearCart() {
     if (cart.length === 0) return;
-    
+
     if (confirm('Are you sure you want to clear your cart?')) {
         cart = [];
         productQuantities = {};
         updateCartUI();
         saveCartToLocalStorage();
-        
+
         // Reset quantity displays
         document.querySelectorAll('.qty-display').forEach(display => {
             display.textContent = '0';
@@ -308,7 +308,12 @@ function clearCart() {
 
 function proceedToCheckout() {
     if (cart.length === 0) return;
-    
+
+    if (window.isPreorderClosed) {
+        alert('The pre-order window has closed. You can no longer place orders for this drop.');
+        return;
+    }
+
     closeCart();
     openCheckoutModal();
 }
@@ -336,7 +341,7 @@ function updateCheckoutModalSummary() {
     const modalSubtotal = document.getElementById('checkoutModalSubtotal');
     const modalTotal = document.getElementById('checkoutModalTotal');
     const modalPaymentTotal = document.getElementById('modalPaymentTotal');
-    
+
     if (modalItems) {
         if (cart.length === 0) {
             modalItems.innerHTML = '<p style="color: var(--text-light);">No items in cart</p>';
@@ -348,10 +353,10 @@ function updateCheckoutModalSummary() {
                 </div>
             `).join('');
         }
-        
+
         const subtotal = getCartTotal();
         const total = subtotal + SHIPPING_COST;
-        
+
         if (modalSubtotal) modalSubtotal.textContent = subtotal.toFixed(2);
         if (modalTotal) modalTotal.textContent = total.toFixed(2);
         if (modalPaymentTotal) modalPaymentTotal.textContent = total.toFixed(2);
@@ -361,16 +366,16 @@ function updateCheckoutModalSummary() {
 // Payment Processing for Modal using Stripe Checkout
 async function handleModalPayment(event) {
     event.preventDefault();
-    
+
     if (cart.length === 0) {
         alert('Your cart is empty!');
         return;
     }
-    
+
     // Check if Stripe is initialized
     if (!stripe) {
         alert('Payment system is not configured. Please add your Stripe publishable key in script.js to enable payments.\n\nFor now, this is a demo. Your order information has been saved.');
-        
+
         // Still allow form submission for demo purposes
         const formData = {
             firstName: document.getElementById('modalFirstName').value,
@@ -382,29 +387,29 @@ async function handleModalPayment(event) {
             zipCode: document.getElementById('modalZipCode').value,
             phone: document.getElementById('modalPhone').value,
         };
-        
+
         console.log('Order details (demo):', { items: cart, shipping: SHIPPING_COST, shippingInfo: formData });
-        
+
         // Clear cart and reset form
         cart = [];
         updateCartUI();
         saveCartToLocalStorage();
         checkoutModalForm.reset();
         closeCheckoutModal();
-        
+
         alert('Order placed successfully! (Demo mode)');
         return;
     }
-    
+
     const submitButton = document.getElementById('submitModalPayment');
     const buttonText = document.getElementById('modal-button-text');
     const spinner = document.getElementById('modal-spinner');
-    
+
     // Disable button and show spinner
     submitButton.disabled = true;
     buttonText.classList.add('hidden');
     spinner.classList.remove('hidden');
-    
+
     // Get form data
     const formData = {
         firstName: document.getElementById('modalFirstName').value,
@@ -416,13 +421,13 @@ async function handleModalPayment(event) {
         zipCode: document.getElementById('modalZipCode').value,
         phone: document.getElementById('modalPhone').value,
     };
-    
+
     try {
         // Calculate total amount in cents
         const subtotal = getCartTotal();
         const total = subtotal + SHIPPING_COST;
         const totalInCents = Math.round(total * 100);
-        
+
         // Prepare line items for Stripe Checkout
         const lineItems = cart.map(item => ({
             price_data: {
@@ -434,9 +439,9 @@ async function handleModalPayment(event) {
             },
             quantity: item.quantity,
         }));
-        
 
-        
+
+
         // Call your backend to create a Checkout Session
         // NOTE: You need to create a backend endpoint that creates a Stripe Checkout Session
         const response = await fetch('/api/create-checkout-session', {
@@ -451,26 +456,26 @@ async function handleModalPayment(event) {
                 cancelUrl: `${window.location.origin}${window.location.pathname}?canceled=true`,
             }),
         });
-        
+
         if (!response.ok) {
             throw new Error('Failed to create checkout session');
         }
-        
+
         const { sessionId } = await response.json();
-        
+
         // Redirect to Stripe Checkout
         const { error } = await stripe.redirectToCheckout({
             sessionId: sessionId,
         });
-        
+
         if (error) {
             throw error;
         }
-        
+
     } catch (error) {
         console.error('Payment error:', error);
         alert('Payment failed: ' + (error.message || 'Please try again.'));
-        
+
         // Re-enable button
         submitButton.disabled = false;
         buttonText.classList.remove('hidden');
@@ -481,16 +486,16 @@ async function handleModalPayment(event) {
 // Payment Processing using Stripe Checkout
 async function handlePayment(event) {
     event.preventDefault();
-    
+
     if (cart.length === 0) {
         alert('Your cart is empty!');
         return;
     }
-    
+
     // Check if Stripe is initialized
     if (!stripe) {
         alert('Payment system is not configured. Please add your Stripe publishable key in script.js to enable payments.\n\nFor now, this is a demo. Your order information has been saved.');
-        
+
         // Still allow form submission for demo purposes
         const formData = {
             firstName: document.getElementById('firstName').value,
@@ -502,27 +507,27 @@ async function handlePayment(event) {
             zipCode: document.getElementById('zipCode').value,
             phone: document.getElementById('phone').value,
         };
-        
+
         console.log('Order details (demo):', { items: cart, shipping: SHIPPING_COST, shippingInfo: formData });
-        
+
         // Clear cart and reset form
         cart = [];
         updateCartUI();
         saveCartToLocalStorage();
         document.getElementById('checkoutForm').reset();
-        
+
         return;
     }
-    
+
     const submitButton = document.getElementById('submitPayment');
     const buttonText = document.getElementById('button-text');
     const spinner = document.getElementById('spinner');
-    
+
     // Disable button and show spinner
     submitButton.disabled = true;
     buttonText.classList.add('hidden');
     spinner.classList.remove('hidden');
-    
+
     // Get form data
     const formData = {
         firstName: document.getElementById('firstName').value,
@@ -534,12 +539,12 @@ async function handlePayment(event) {
         zipCode: document.getElementById('zipCode').value,
         phone: document.getElementById('phone').value,
     };
-    
+
     try {
         // Calculate total amount in cents
         const subtotal = getCartTotal();
         const total = subtotal + SHIPPING_COST;
-        
+
         // Prepare line items for Stripe Checkout
         const lineItems = cart.map(item => ({
             price_data: {
@@ -551,9 +556,9 @@ async function handlePayment(event) {
             },
             quantity: item.quantity,
         }));
-        
 
-        
+
+
         // Call your backend to create a Checkout Session
         // NOTE: You need to create a backend endpoint that creates a Stripe Checkout Session
         const response = await fetch('/api/create-checkout-session', {
@@ -568,26 +573,26 @@ async function handlePayment(event) {
                 cancelUrl: `${window.location.origin}${window.location.pathname}?canceled=true`,
             }),
         });
-        
+
         if (!response.ok) {
             throw new Error('Failed to create checkout session');
         }
-        
+
         const { sessionId } = await response.json();
-        
+
         // Redirect to Stripe Checkout
         const { error } = await stripe.redirectToCheckout({
             sessionId: sessionId,
         });
-        
+
         if (error) {
             throw error;
         }
-        
+
     } catch (error) {
         console.error('Payment error:', error);
         alert('Payment failed: ' + (error.message || 'Please try again.'));
-        
+
         // Re-enable button
         submitButton.disabled = false;
         buttonText.classList.remove('hidden');
@@ -599,10 +604,10 @@ async function handlePayment(event) {
 document.addEventListener('DOMContentLoaded', () => {
     // Load cart from localStorage
     loadCartFromLocalStorage();
-    
+
     // Initialize Stripe
     initializeStripe();
-    
+
     // Initialize product quantities
     document.querySelectorAll('.product-card').forEach(card => {
         const productId = parseInt(card.dataset.productId);
@@ -610,7 +615,7 @@ document.addEventListener('DOMContentLoaded', () => {
             productQuantities[productId] = 0;
         }
     });
-    
+
     // Legacy add to cart buttons (if any remain)
     document.querySelectorAll('.add-to-cart-btn').forEach(button => {
         // Only attach if not already handled by onclick
@@ -621,35 +626,35 @@ document.addEventListener('DOMContentLoaded', () => {
                     const productId = parseInt(productCard.dataset.productId);
                     const productName = productCard.dataset.productName;
                     const productPrice = productCard.dataset.productPrice;
-                    
+
                     addProductToCart(productId, productName, productPrice);
                 }
             });
         }
     });
-    
+
     // Cart modal controls
     const cartButton = document.getElementById('cartButton');
     const closeCartBtn = document.getElementById('closeCart');
     const checkoutBtn = document.getElementById('checkoutBtn');
     const clearCartBtn = document.getElementById('clearCartBtn');
-    
+
     if (cartButton) {
         cartButton.addEventListener('click', openCart);
     }
-    
+
     if (closeCartBtn) {
         closeCartBtn.addEventListener('click', closeCart);
     }
-    
+
     if (checkoutBtn) {
         checkoutBtn.addEventListener('click', proceedToCheckout);
     }
-    
+
     if (clearCartBtn) {
         clearCartBtn.addEventListener('click', clearCart);
     }
-    
+
     // Close cart when clicking outside
     const cartModal = document.getElementById('cartModal');
     if (cartModal) {
@@ -659,15 +664,15 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
-    
+
     // Checkout modal controls
     const closeCheckoutBtn = document.getElementById('closeCheckout');
     const checkoutModal = document.getElementById('checkoutModal');
-    
+
     if (closeCheckoutBtn) {
         closeCheckoutBtn.addEventListener('click', closeCheckoutModal);
     }
-    
+
     if (checkoutModal) {
         checkoutModal.addEventListener('click', (e) => {
             if (e.target === checkoutModal) {
@@ -675,13 +680,13 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
-    
+
     // Checkout modal form submission
     const checkoutModalForm = document.getElementById('checkoutModalForm');
     if (checkoutModalForm) {
         checkoutModalForm.addEventListener('submit', handleModalPayment);
     }
-    
+
     // Handle Stripe Checkout success/cancel redirects
     const urlParams = new URLSearchParams(window.location.search);
     if (urlParams.get('success') === 'true') {
@@ -697,24 +702,24 @@ document.addEventListener('DOMContentLoaded', () => {
         // Clean up URL
         window.history.replaceState({}, document.title, window.location.pathname);
     }
-    
+
     // Checkout form submission
     const checkoutForm = document.getElementById('checkoutForm');
     if (checkoutForm) {
         checkoutForm.addEventListener('submit', handlePayment);
     }
-    
+
     // Update order summary when cart changes
     updateOrderSummary();
-    
+
     // Initialize flavor tabs - with a small delay to ensure DOM is ready
     setTimeout(() => {
         initializeFlavorTabs();
     }, 100);
-    
+
     // Initialize countdown timers
     initializeCountdowns();
-    
+
     // Initialize package flavor selection
     initializePackageFlavorSelection();
 });
@@ -723,14 +728,14 @@ document.addEventListener('DOMContentLoaded', () => {
 function initializePackageFlavorSelection() {
     // Add event listeners to all flavor radio buttons
     document.querySelectorAll('.flavor-option input[type="radio"]').forEach(radio => {
-        radio.addEventListener('change', function() {
+        radio.addEventListener('change', function () {
             // Update visual state of all options in the same group
             const flavorOptionsContainer = this.closest('.flavor-options');
             const allOptions = flavorOptionsContainer.querySelectorAll('.flavor-option');
-            
+
             allOptions.forEach(option => {
                 const optionRadio = option.querySelector('input[type="radio"]');
-                
+
                 if (optionRadio && optionRadio.checked) {
                     option.classList.add('selected');
                 } else {
@@ -739,7 +744,7 @@ function initializePackageFlavorSelection() {
             });
         });
     });
-    
+
     // Initialize checked states on page load
     document.querySelectorAll('.flavor-option input[type="radio"]:checked').forEach(radio => {
         const flavorOption = radio.closest('.flavor-option');
@@ -755,14 +760,14 @@ if (menuToggle && navMenu) {
     menuToggle.addEventListener('click', (e) => {
         e.stopPropagation();
         navMenu.classList.toggle('active');
-        
+
         // Prevent body scroll when menu is open
         if (navMenu.classList.contains('active')) {
             document.body.style.overflow = 'hidden';
         } else {
             document.body.style.overflow = '';
         }
-        
+
         // Animate hamburger menu
         const spans = menuToggle.querySelectorAll('span');
         if (navMenu.classList.contains('active')) {
@@ -778,8 +783,8 @@ if (menuToggle && navMenu) {
 
     // Close menu when clicking outside
     document.addEventListener('click', (e) => {
-        if (navMenu.classList.contains('active') && 
-            !navMenu.contains(e.target) && 
+        if (navMenu.classList.contains('active') &&
+            !navMenu.contains(e.target) &&
             !menuToggle.contains(e.target)) {
             navMenu.classList.remove('active');
             document.body.style.overflow = '';
@@ -814,13 +819,13 @@ const navbar = document.querySelector('.navbar');
 if (navbar) {
     window.addEventListener('scroll', () => {
         const currentScroll = window.pageYOffset;
-        
+
         if (currentScroll > 100) {
             navbar.style.boxShadow = '0 2px 20px rgba(0, 0, 0, 0.15)';
         } else {
             navbar.style.boxShadow = '0 2px 10px rgba(0, 0, 0, 0.1)';
         }
-        
+
         lastScroll = currentScroll;
     });
 }
@@ -830,24 +835,24 @@ function smoothScrollTo(targetPosition, duration = 800) {
     const startPosition = window.pageYOffset;
     const distance = targetPosition - startPosition;
     let startTime = null;
-    
+
     // Easing function for smooth acceleration/deceleration
     function easeInOutCubic(t) {
         return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
     }
-    
+
     function animation(currentTime) {
         if (startTime === null) startTime = currentTime;
         const timeElapsed = currentTime - startTime;
         const progress = Math.min(timeElapsed / duration, 1);
-        
+
         window.scrollTo(0, startPosition + distance * easeInOutCubic(progress));
-        
+
         if (progress < 1) {
             requestAnimationFrame(animation);
         }
     }
-    
+
     requestAnimationFrame(animation);
 }
 
@@ -855,23 +860,23 @@ function smoothScrollTo(targetPosition, duration = 800) {
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
         const href = this.getAttribute('href');
-        
+
         // Skip if it's just "#"
         if (href === '#' || !href) {
             return;
         }
-        
+
         e.preventDefault();
         const target = document.querySelector(href);
-        
+
         if (target) {
             // Get navbar height dynamically
             const navbar = document.querySelector('.navbar');
             const navbarHeight = navbar ? navbar.offsetHeight : 70;
-            
+
             // Calculate target position
             const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - navbarHeight;
-            
+
             // Use custom smooth scroll for better control
             smoothScrollTo(targetPosition, 800);
         }
@@ -906,12 +911,12 @@ const contactForm = document.querySelector('.contact-form');
 if (contactForm) {
     contactForm.addEventListener('submit', (e) => {
         e.preventDefault();
-        
+
         // Get form values
         const name = document.getElementById('name').value;
         const email = document.getElementById('email').value;
         const message = document.getElementById('message').value;
-        
+
         // Simple validation
         if (name && email && message) {
             // Here you would typically send the form data to a server
@@ -937,12 +942,12 @@ document.querySelectorAll('.faq-question').forEach(question => {
     question.addEventListener('click', () => {
         const faqItem = question.parentElement;
         const isActive = faqItem.classList.contains('active');
-        
+
         // Close all FAQ items
         document.querySelectorAll('.faq-item').forEach(item => {
             item.classList.remove('active');
         });
-        
+
         // Open clicked item if it wasn't active
         if (!isActive) {
             faqItem.classList.add('active');
@@ -956,7 +961,7 @@ if (newsletterForm) {
     newsletterForm.addEventListener('submit', (e) => {
         e.preventDefault();
         const email = newsletterForm.querySelector('input[type="email"]').value;
-        
+
         // Here you would typically send to your backend/email service
         alert('Thank you for subscribing! We\'ll keep you updated with our latest news and offers.');
         newsletterForm.reset();
@@ -967,49 +972,49 @@ if (newsletterForm) {
 function initializeFlavorTabs() {
     // Get all flavor tabs
     const flavorTabs = document.querySelectorAll('.flavor-tab');
-    
+
     console.log('Initializing flavor tabs, found:', flavorTabs.length);
-    
+
     if (flavorTabs.length === 0) {
         console.warn('Flavor tabs not found');
         return;
     }
-    
+
     // Set up click handlers for each tab
     flavorTabs.forEach((tab, index) => {
         console.log(`Setting up tab ${index}:`, tab.getAttribute('data-flavor'));
-        
-        tab.addEventListener('click', function(e) {
+
+        tab.addEventListener('click', function (e) {
             e.preventDefault();
             e.stopPropagation();
-            
+
             const flavor = this.getAttribute('data-flavor');
             console.log('Tab clicked, flavor:', flavor);
-            
+
             if (!flavor) {
                 console.error('No data-flavor attribute found on tab');
                 return;
             }
-            
+
             // Remove active class from all tabs
             document.querySelectorAll('.flavor-tab').forEach(t => {
                 t.classList.remove('active');
             });
-            
+
             // Remove active class from all details
             document.querySelectorAll('.flavor-details').forEach(d => {
                 d.classList.remove('active');
             });
-            
+
             // Add active class to clicked tab
             this.classList.add('active');
             console.log('Active class added to tab');
-            
+
             // Show corresponding details
             const detailsId = `${flavor}-details`;
             console.log('Looking for details with ID:', detailsId);
             const details = document.getElementById(detailsId);
-            
+
             if (details) {
                 details.classList.add('active');
                 console.log('Details element found and activated');
@@ -1024,15 +1029,15 @@ function initializeFlavorTabs() {
             }
         });
     });
-    
+
     console.log('Flavor tabs initialization complete');
 }
 
 // Countdown Timer Functions
 // Set your target dates here (format: 'YYYY-MM-DD HH:MM:SS')
 // Example: '2024-12-31 23:59:59'
-const PREORDER_DEADLINE = '2024-12-31 23:59:59'; // Pre-order window deadline
-const DELIVERY_DATE = '2025-01-05 12:00:00'; // Juice delivery date
+const PREORDER_DEADLINE = '2026-03-03 21:54:01'; // Pre-order window deadline
+const DELIVERY_DATE = '2026-03-24 10:12:08'; // Juice delivery date
 
 let preorderInterval = null;
 let deliveryInterval = null;
@@ -1042,12 +1047,20 @@ function updateCountdown(targetDate, daysId, hoursId, minutesId, secondsId) {
     const target = new Date(targetDate).getTime();
     const distance = target - now;
 
+    if (daysId === 'preorderDays') {
+        window.isPreorderClosed = distance < 0;
+    }
+
     if (distance < 0) {
         // Countdown has ended
         document.getElementById(daysId).textContent = '0';
         document.getElementById(hoursId).textContent = '0';
         document.getElementById(minutesId).textContent = '0';
         document.getElementById(secondsId).textContent = '0';
+
+        if (daysId === 'preorderDays') {
+            handlePreorderClosed();
+        }
         return false;
     }
 
@@ -1087,7 +1100,7 @@ function startPreorderCountdown() {
             'preorderMinutes',
             'preorderSeconds'
         );
-        
+
         if (!isActive) {
             clearInterval(preorderInterval);
         }
@@ -1117,7 +1130,7 @@ function startDeliveryCountdown() {
             'deliveryMinutes',
             'deliverySeconds'
         );
-        
+
         if (!isActive) {
             clearInterval(deliveryInterval);
         }
@@ -1129,9 +1142,52 @@ function initializeCountdowns() {
     if (document.getElementById('preorderDays')) {
         startPreorderCountdown();
     }
-    
+
     if (document.getElementById('deliveryDays')) {
         startDeliveryCountdown();
+    }
+}
+
+function handlePreorderClosed() {
+    // Hide all Add to Cart buttons
+    const allAddButtons = document.querySelectorAll('.add-to-cart-btn, .add-package-btn');
+    allAddButtons.forEach(btn => btn.style.display = 'none');
+
+    // Hide quantity controls for individual products
+    const quantityControls = document.querySelectorAll('.quantity-selector');
+    quantityControls.forEach(ctrl => ctrl.style.display = 'none');
+
+    // Add closed message to product/package cards
+    const productCards = document.querySelectorAll('.product-card');
+    const packageCards = document.querySelectorAll('.package-card');
+
+    const closedMessageHTML = `
+        <div class="closed-window-msg">
+            <p><strong>Pre-order window is closed.</strong></p>
+            <p>Join our mailing list below to be notified of the next Juic'E drop!</p>
+            <button class="btn btn-secondary mt-2" onclick="smoothScrollTo(document.querySelector('.newsletter').getBoundingClientRect().top + window.pageYOffset - 70, 800)">Sign Up Here</button>
+        </div>
+    `;
+
+    productCards.forEach(card => {
+        if (!card.querySelector('.closed-window-msg')) {
+            card.insertAdjacentHTML('beforeend', closedMessageHTML);
+        }
+    });
+
+    packageCards.forEach(card => {
+        // Find a good place to insert the message: before actions or at the end
+        const actionsContainer = card.querySelector('.package-actions');
+        if (actionsContainer && !card.querySelector('.closed-window-msg')) {
+            actionsContainer.insertAdjacentHTML('beforebegin', closedMessageHTML);
+        }
+    });
+
+    // Disable the checkout button just in case
+    const checkoutBtn = document.getElementById('checkoutBtn');
+    if (checkoutBtn) {
+        checkoutBtn.disabled = true;
+        checkoutBtn.textContent = 'Pre-orders Closed';
     }
 }
 

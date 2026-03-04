@@ -601,6 +601,32 @@ section {
     align-items: center;
 }
 
+/* Closed Window Message */
+.closed-window-msg {
+    background-color: #f8f9fa;
+    border: 1px solid #e9ecef;
+    border-radius: 8px;
+    padding: 1rem;
+    margin-top: 1rem;
+    text-align: center;
+    color: var(--text-dark);
+}
+
+.closed-window-msg p {
+    margin-bottom: 0.5rem;
+    font-size: 0.95rem;
+}
+
+.closed-window-msg p strong {
+    color: var(--primary-color);
+}
+
+.closed-window-msg .btn {
+    margin-top: 0.5rem;
+    font-size: 0.9rem;
+    padding: 0.5rem 1rem;
+}
+
 .product-actions {
     display: flex;
     gap: 1rem;

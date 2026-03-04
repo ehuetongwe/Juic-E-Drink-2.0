@@ -12,7 +12,10 @@
     "packageJson": {
       "dependencies": [
         "npm:@sendgrid/mail@^7.7.0",
+        "npm:@supabase/supabase-js@^2.98.0",
+        "npm:dotenv@^17.3.1",
         "npm:stripe@14",
+        "npm:supabase@^2.76.15",
         "npm:twilio@^4.19.0"
       ]
     }

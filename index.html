@@ -59,7 +59,9 @@
                 </div>
                 <h2 class="hero-title">True Wealth Is Maintaining Your Health</h2>
                 <p class="hero-subtitle">Clean, fresh, and nutrient-packed juices made to support your health goals.</p>
-                <p class="hero-tagline">📍 Local drop-offs and pickups available now. Nationwide shipping coming soon!
+                <p class="hero-tagline">📍 Juic'E Drinks operates on a limited-batch pre-order cycle. Pre-orders remain
+                    open for two weeks. Production begins in week three, and all orders ship immediately after pressing
+                    to ensure peak freshness.
                 </p>
             </div>
         </div>
@@ -98,15 +100,7 @@
                         <span class="benefit">✓ Natural Detox</span>
                         <span class="benefit">✓ Immune Support</span>
                     </div>
-                    <div class="product-actions">
-                        <div class="quantity-selector">
-                            <button class="qty-btn minus" onclick="updateProductQuantity(1, -1)">-</button>
-                            <span class="qty-display" id="qty-1">0</span>
-                            <button class="qty-btn plus" onclick="updateProductQuantity(1, 1)">+</button>
-                        </div>
-                        <button class="btn btn-primary add-to-cart-btn"
-                            onclick="addProductToCart(1, 'The Refresher', 7.99)">Add to Cart</button>
-                    </div>
+
                 </div>
                 <div class="product-card" data-product-id="2" data-product-name="The Reboot" data-product-price="7.99">
                     <div class="product-image">
@@ -130,15 +124,7 @@
                         <span class="benefit">✓ Circulation Boost</span>
                         <span class="benefit">✓ Liver Support</span>
                     </div>
-                    <div class="product-actions">
-                        <div class="quantity-selector">
-                            <button class="qty-btn minus" onclick="updateProductQuantity(2, -1)">-</button>
-                            <span class="qty-display" id="qty-2">0</span>
-                            <button class="qty-btn plus" onclick="updateProductQuantity(2, 1)">+</button>
-                        </div>
-                        <button class="btn btn-primary add-to-cart-btn"
-                            onclick="addProductToCart(2, 'The Reboot', 7.99)">Add to Cart</button>
-                    </div>
+
                 </div>
             </div>
         </div>
@@ -285,24 +271,25 @@
     <section id="packages" class="packages">
         <div class="container">
             <div class="section-header">
-                <h2>Juice Cleanse Packages</h2>
+                <h2>Juice Packages</h2>
                 <p>Choose the perfect package duration for your wellness goals</p>
             </div>
             <div class="packages-grid">
                 <!-- 1-Day Package -->
-                <div class="package-card" data-package-id="1" data-package-days="1" data-package-bottles="8"
-                    data-package-price="60">
+                <div class="package-card" data-package-id="1" data-package-days="1" data-package-bottles="3"
+                    data-package-price="20">
                     <div class="package-header">
-                        <h3>1-Day Package</h3>
+                        <h3>Starter Reset</h3>
                         <div class="package-details">
-                            <span class="package-bottles">8 Bottles</span>
-                            <span class="package-price">$60</span>
+                            <span class="package-bottles">3 Bottles</span>
+                            <span class="package-price">$20</span>
                         </div>
                     </div>
                     <div class="package-description">
-                        <h4 class="package-desc-title">A Gentle Jumpstart</h4>
-                        <p class="package-desc-text">A one-day reset for hydration and recalibration. Perfect for
-                            beginners or busy days. Think of it as a spa day—for your insides.</p>
+                        <h4 class="package-desc-title">A Simple, Intentional Starting Point</h4>
+                        <p class="package-desc-text">Designed for those taking the first step toward better habits. A
+                            compact introduction to cold pressed
+                            nutrition that helps you reset, refocus, and rehydrate without overwhelm.</p>
                     </div>
                     <div class="package-flavor-selection">
                         <label class="package-flavor-label">Choose Your Flavor:</label>
@@ -321,25 +308,26 @@
                     </div>
                     <div class="package-actions">
                         <button class="btn btn-primary add-package-btn"
-                            onclick="addPackageToCart(1, '1-Day Package', 60, 8)">Add 1-Day Package to Cart</button>
+                            onclick="addPackageToCart(1, 'Starter Reset', 20, 3)">Add Starter Reset to Cart</button>
                         <button class="btn btn-secondary learn-more-btn">Learn More</button>
                     </div>
                 </div>
 
                 <!-- 2-Day Package -->
-                <div class="package-card" data-package-id="2" data-package-days="2" data-package-bottles="16"
-                    data-package-price="120">
+                <div class="package-card" data-package-id="2" data-package-days="2" data-package-bottles="6"
+                    data-package-price="40">
                     <div class="package-header">
-                        <h3>2-Day Package</h3>
+                        <h3>Momentum Pack</h3>
                         <div class="package-details">
-                            <span class="package-bottles">16 Bottles</span>
-                            <span class="package-price">$120</span>
+                            <span class="package-bottles">6 Bottles</span>
+                            <span class="package-price">$40</span>
                         </div>
                     </div>
                     <div class="package-description">
-                        <h4 class="package-desc-title">Balanced. Intentional. Effective.</h4>
-                        <p class="package-desc-text">A two-day package for reawakening and energizing your body. Ideal
-                            for a weekend detox or midweek realignment.</p>
+                        <h4 class="package-desc-title">Consistency Without the Commitment Overload</h4>
+                        <p class="package-desc-text">Built for maintaining healthy momentum throughout your week. Ideal
+                            for busy schedules and intentional
+                            routines, giving you structured nourishment without the prep or cleanup.</p>
                     </div>
                     <div class="package-flavor-selection">
                         <label class="package-flavor-label">Choose Your Flavor:</label>
@@ -358,27 +346,27 @@
                     </div>
                     <div class="package-actions">
                         <button class="btn btn-primary add-package-btn"
-                            onclick="addPackageToCart(2, '2-Day Package', 120, 16)">Add 2-Day Package to Cart</button>
+                            onclick="addPackageToCart(2, 'Momentum Pack', 40, 6)">Add Momentum Pack to Cart</button>
                         <button class="btn btn-secondary learn-more-btn">Learn More</button>
                     </div>
                 </div>
 
                 <!-- 3-Day Package (Most Popular) -->
                 <div class="package-card package-popular" data-package-id="3" data-package-days="3"
-                    data-package-bottles="24" data-package-price="175">
+                    data-package-bottles="12" data-package-price="80">
                     <div class="popular-badge">Most Popular</div>
                     <div class="package-header">
-                        <h3>3-Day Package</h3>
+                        <h3>Foundation Pack</h3>
                         <div class="package-details">
-                            <span class="package-bottles">24 Bottles</span>
-                            <span class="package-price">$175</span>
+                            <span class="package-bottles">12 Bottles</span>
+                            <span class="package-price">$80</span>
                         </div>
                     </div>
                     <div class="package-description">
-                        <h4 class="package-desc-title">Your Full-Body Refresh</h4>
-                        <p class="package-desc-text">A three-day journey for detox, hydration, and renewal. Feel
-                            lighter, brighter, and fully recharged. Wellness that flows with you—mind, body, and spirit.
-                        </p>
+                        <h4 class="package-desc-title">Where Routine Becomes Lifestyle</h4>
+                        <p class="package-desc-text">The ideal balance between structure and flexibility. Designed for
+                            those serious about building consistency,
+                            this pack supports sustained energy, clarity, and whole body alignment.</p>
                     </div>
                     <div class="package-flavor-selection">
                         <label class="package-flavor-label">Choose Your Flavor:</label>
@@ -397,27 +385,27 @@
                     </div>
                     <div class="package-actions">
                         <button class="btn btn-primary add-package-btn"
-                            onclick="addPackageToCart(3, '3-Day Package', 175, 24)">Add 3-Day Package to Cart</button>
+                            onclick="addPackageToCart(3, 'Foundation Pack', 80, 12)">Add Foundation Pack to
+                            Cart</button>
                         <button class="btn btn-secondary learn-more-btn">Learn More</button>
                     </div>
                 </div>
 
                 <!-- 5-Day Package -->
-                <div class="package-card" data-package-id="4" data-package-days="5" data-package-bottles="40"
-                    data-package-price="290">
+                <div class="package-card" data-package-id="4" data-package-days="5" data-package-bottles="24"
+                    data-package-price="160">
                     <div class="package-header">
-                        <h3>5-Day Package</h3>
+                        <h3>Transformation Pack</h3>
                         <div class="package-details">
-                            <span class="package-bottles">40 Bottles</span>
-                            <span class="package-price">$290</span>
+                            <span class="package-bottles">24 Bottles</span>
+                            <span class="package-price">$160</span>
                         </div>
                     </div>
                     <div class="package-description">
-                        <h4 class="package-desc-title">🌺 Elevated Restoration</h4>
-                        <p class="package-desc-text">Designed for those ready to go deeper, the 5-Day Package supports
-                            cellular rejuvenation and sustained energy. Let go of the noise, flood your body with
-                            nutrients, and return to your natural flow.</p>
-                        <p class="package-tagline">The perfect companion for a wellness-focused week.</p>
+                        <h4 class="package-desc-title">Deep Support for Elevated Goals</h4>
+                        <p class="package-desc-text">For those ready to go further. This tier supports focused wellness
+                            efforts, sustained discipline, and a more
+                            intentional nutritional rhythm. A strong commitment to feeling your best.</p>
                     </div>
                     <div class="package-flavor-selection">
                         <label class="package-flavor-label">Choose Your Flavor:</label>
@@ -436,27 +424,27 @@
                     </div>
                     <div class="package-actions">
                         <button class="btn btn-primary add-package-btn"
-                            onclick="addPackageToCart(4, '5-Day Package', 290, 40)">Add 5-Day Package to Cart</button>
+                            onclick="addPackageToCart(4, 'Transformation Pack', 160, 24)">Add Transformation Pack to
+                            Cart</button>
                         <button class="btn btn-secondary learn-more-btn">Learn More</button>
                     </div>
                 </div>
 
                 <!-- 7-Day Package -->
-                <div class="package-card" data-package-id="5" data-package-days="7" data-package-bottles="56"
-                    data-package-price="400">
+                <div class="package-card" data-package-id="5" data-package-days="7" data-package-bottles="48"
+                    data-package-price="320">
                     <div class="package-header">
-                        <h3>7-Day Package</h3>
+                        <h3>Master Pack</h3>
                         <div class="package-details">
-                            <span class="package-bottles">56 Bottles</span>
-                            <span class="package-price">$400</span>
+                            <span class="package-bottles">48 Bottles</span>
+                            <span class="package-price">$320</span>
                         </div>
                     </div>
                     <div class="package-description">
-                        <h4 class="package-desc-title">😊 Complete Transformation</h4>
-                        <p class="package-desc-text">A week of vibrant blends crafted for those committed to deep
-                            healing and reset. This journey nourishes every cell, sharpens your focus, and cultivates
-                            clarity—from your first sip to your last sunrise.</p>
-                        <p class="package-tagline">Not just a package—this is a wellness ritual.</p>
+                        <h4 class="package-desc-title">Complete Integration Into Your Lifestyle</h4>
+                        <p class="package-desc-text">Structured for long term alignment and shared wellness. Whether for
+                            households or high frequency users,
+                            this tier makes clean nourishment a consistent, accessible standard.</p>
                     </div>
                     <div class="package-flavor-selection">
                         <label class="package-flavor-label">Choose Your Flavor:</label>
@@ -475,7 +463,7 @@
                     </div>
                     <div class="package-actions">
                         <button class="btn btn-primary add-package-btn"
-                            onclick="addPackageToCart(5, '7-Day Package', 400, 56)">Add 7-Day Package to Cart</button>
+                            onclick="addPackageToCart(5, 'Master Pack', 320, 48)">Add Master Pack to Cart</button>
                         <button class="btn btn-secondary learn-more-btn">Learn More</button>
                     </div>
                 </div>
@@ -489,17 +477,14 @@
             <div class="about-content">
                 <div class="about-text">
                     <h2>Why Juic'E Drinks?</h2>
-                    <p class="about-lead">At Juic'E Drinks, we believe juice should be enjoyed the way nature intended —
-                        raw, fresh, and uncompromised. That's why we never expose our juices to high heat or excessive
-                        processing. These methods can diminish natural flavor and take away from the integrity of the
-                        ingredients.</p>
-                    <p>Our approach is simple: cold-pressed juice made with care and left in its most natural state.
-                        Every bottle is carefully crafted to deliver a pure, vibrant juice experience that you can truly
-                        savor.</p>
-                    <p class="about-tagline">100% organic. Raw. Cold-pressed. Exactly as it should be.</p>
-                    <p class="about-tagline">No additives. No preservatives. No shortcuts.</p>
-                    <p class="about-tagline">Nourish your body with raw cold-pressed juice — a true gift from nature.
-                    </p>
+                    <p class="about-lead">At Juic’E Drinks, we believe juice should be experienced as nature intended —
+                        raw, fresh, and uncompromised. That’s why we never expose our blends to high heat or unnecessary
+                        processing. Preserving integrity means preserving flavor, vitality, and the true character of
+                        every ingredient.</p>
+                    <p>We operate intentionally. Each batch is cold-pressed with care and produced in limited cycles to
+                        ensure freshness from the moment it’s made to the moment it reaches you.</p>
+                    <p>Every bottle is crafted to deliver a clean, vibrant experience you can taste and feel.</p>
+                    <p class="about-tagline">Pure ingredients. Thoughtful production. No shortcuts.</p>
                 </div>
             </div>
         </div>
@@ -561,9 +546,13 @@
                         <span class="faq-toggle">+</span>
                     </button>
                     <div class="faq-answer">
-                        <p>Yes, we ship to all 50 states in the United States. Shipments take on average 1-3 days for
-                            processing and then once your order is shipped it will take on average 1-3 days to arrive to
-                            you. Shipments are sent out Monday, Tuesday & Wednesday of each week.</p>
+                        <p>Yes. We ship nationwide across all 50 states using insulated cold pack packaging to maintain
+                            freshness during transit.</p>
+                        <p>Juic'E Drinks operates on a limited batch pre order cycle. Orders are collected during a two
+                            week
+                            window. Production begins in week three, and all orders ship immediately after pressing to
+                            ensure peak freshness.</p>
+                        <p>Once shipped, delivery typically takes 1 to 3 business days depending on your location.</p>
                     </div>
                 </div>
                 <div class="faq-item">
@@ -572,8 +561,11 @@
                         <span class="faq-toggle">+</span>
                     </button>
                     <div class="faq-answer">
-                        <p>All Juices are shipped frozen inside 2 inch thick styrofoam lined boxes to keep cold in
-                            transit.</p>
+                        <p>All juices are frozen prior to shipment and packed inside insulated boxes with cold packs to
+                            maintain temperature during transit. This method helps ensure your juices arrive cold and
+                            ready to store.</p>
+                        <p>If your juices arrive partially thawed but still cold, they are safe to refreeze or
+                            refrigerate.</p>
                     </div>
                 </div>
                 <div class="faq-item">
@@ -582,8 +574,11 @@
                         <span class="faq-toggle">+</span>
                     </button>
                     <div class="faq-answer">
-                        <p>Upon arrival, we suggest to put your juices right back into the freezer until you are ready
-                            to drink them. The juices will keep fresh for up to 6 months frozen.</p>
+                        <p>Upon arrival, we recommend placing your juices in the freezer until you are ready to consume
+                            them.</p>
+                        <p>Juices can be stored frozen for up to six months. Once thawed, keep refrigerated and consume
+                            within 3 to 5 days for optimal freshness.</p>
+                        <p>Always keep juices refrigerated when not frozen.</p>
                     </div>
                 </div>
                 <div class="faq-item">
@@ -592,9 +587,11 @@
                         <span class="faq-toggle">+</span>
                     </button>
                     <div class="faq-answer">
-                        <p>The best way to thaw your Juices is to rotate from the freezer to the fridge 24-48 hours
-                            before you plan to drink them. If you're running low on time you can set the juice out on
-                            the counter or place in a warm bowl of water for a faster thaw.</p>
+                        <p>For best results, transfer your juice from the freezer to the refrigerator 24 to 48 hours
+                            before you plan to drink it.</p>
+                        <p>If you need to thaw more quickly, place the sealed bottle in a bowl of cool water. Avoid
+                            using hot water or microwaving, as this may affect quality.</p>
+                        <p>Shake well before drinking, as natural separation may occur.</p>
                     </div>
                 </div>
                 <div class="faq-item">
@@ -603,9 +600,10 @@
                         <span class="faq-toggle">+</span>
                     </button>
                     <div class="faq-answer">
-                        <p>All Juices have the listed benefits on the product page to help you align your goals with
-                            your selection. If you're still having trouble deciding, feel free to reach out using the
-                            contact form and we will assist you in finding what's right for you :)</p>
+                        <p>Each product page includes detailed descriptions and suggested benefits to help you choose
+                            the juice that aligns with your goals.</p>
+                        <p>If you are unsure which option fits your needs, feel free to contact us through the contact
+                            page and we will gladly guide you toward the best selection for your wellness journey.</p>
                     </div>
                 </div>
             </div>
