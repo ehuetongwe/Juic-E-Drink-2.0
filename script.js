@@ -906,24 +906,16 @@ document.querySelectorAll('.product-card').forEach(card => {
     observer.observe(card);
 });
 
-// Form submission handler for contact form
+// Form submission handler for contact form (Handled by Netlify Forms)
 const contactForm = document.querySelector('.contact-form');
 if (contactForm) {
     contactForm.addEventListener('submit', (e) => {
-        e.preventDefault();
-
-        // Get form values
-        const name = document.getElementById('name').value;
-        const email = document.getElementById('email').value;
-        const message = document.getElementById('message').value;
-
-        // Simple validation
-        if (name && email && message) {
-            // Here you would typically send the form data to a server
-            alert('Thank you for your message! We\'ll get back to you soon.');
-            contactForm.reset();
-        } else {
-            alert('Please fill in all fields.');
+        // Allow the default form submission to send data to Netlify
+        // We can add a loading state here if desired
+        const submitBtn = contactForm.querySelector('button[type="submit"]');
+        if (submitBtn) {
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Sending...';
         }
     });
 }
