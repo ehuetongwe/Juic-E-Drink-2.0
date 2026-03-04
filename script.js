@@ -910,13 +910,38 @@ document.querySelectorAll('.product-card').forEach(card => {
 const contactForm = document.querySelector('.contact-form');
 if (contactForm) {
     contactForm.addEventListener('submit', (e) => {
-        // Allow the default form submission to send data to Netlify
-        // We can add a loading state here if desired
+        e.preventDefault();
+
         const submitBtn = contactForm.querySelector('button[type="submit"]');
+        const originalText = submitBtn ? submitBtn.textContent : 'Send Message';
+
         if (submitBtn) {
             submitBtn.disabled = true;
             submitBtn.textContent = 'Sending...';
         }
+
+        const formData = new FormData(contactForm);
+        const data = new URLSearchParams();
+        for (const pair of formData) {
+            data.append(pair[0], pair[1]);
+        }
+
+        fetch('/', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            body: data.toString()
+        }).then(() => {
+            alert('Thank you for your message! We\'ll get back to you soon at support@juicedrinks.biz.');
+            contactForm.reset();
+        }).catch((error) => {
+            alert('There was an issue sending your message. Please try again later.');
+            console.error(error);
+        }).finally(() => {
+            if (submitBtn) {
+                submitBtn.disabled = false;
+                submitBtn.textContent = originalText;
+            }
+        });
     });
 }
 
