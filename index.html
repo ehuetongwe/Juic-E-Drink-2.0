@@ -612,8 +612,12 @@
                 <div class="newsletter-icon">📩</div>
                 <h2>Join Our Mailing List</h2>
                 <p>Be the first to hear about sales, new products, and wellness tips</p>
-                <form class="newsletter-form" id="newsletterForm">
-                    <input type="email" placeholder="Enter your email address" required>
+                <form class="newsletter-form" id="newsletterForm" name="newsletter" data-netlify="true"
+                    netlify-honeypot="bot-field">
+                    <p class="hidden" style="display: none;">
+                        <label>Don't fill this out if you're human: <input name="bot-field" /></label>
+                    </p>
+                    <input type="email" name="email" placeholder="Enter your email address" required>
                     <button type="submit" class="btn btn-primary">Subscribe</button>
                 </form>
             </div>

@@ -29,10 +29,10 @@ Open `.env` and replace the placeholders with your actual keys:
 
 ```env
 # Your actual test secret key from Netlify Dashboard
-STRIPE_SECRET_KEY=sk_test_51RkExhJy0Fz1YZ85i0r3I4Zx1GoUa5T60qqdBRLjnyjH5IdHChyicGFyLPZ8kZsGTQG33YZIfPw01xUAn3camAQ700s82h5iQ4
+STRIPE_SECRET_KEY=sk_test_YOUR_TEST_SECRET_KEY_HERE
 
-# Your actual test publishable key (should match script.js)
-STRIPE_PUBLISHABLE_KEY=pk_test_51RkExhJyOFzlYZ85icg54mcoVKWQrw1TYTeOnOiZS53VACyFKpfWjrfgjy0AbmSIjT7sg3QitafBDPni9UjOVP1300036hMfaR
+# Your test publishable key (should match script.js)
+STRIPE_PUBLISHABLE_KEY=pk_test_YOUR_TEST_PUBLISHABLE_KEY_HERE
 
 # Your webhook secret (if using webhooks)
 STRIPE_WEBHOOK_SECRET=whsec_YOUR_WEBHOOK_SECRET_HERE
@@ -69,12 +69,12 @@ Based on your configuration:
 
 **Secret Key (from Netlify):**
 ```
-sk_test_51RkExhJy0Fz1YZ85i0r3I4Zx1GoUa5T60qqdBRLjnyjH5IdHChyicGFyLPZ8kZsGTQG33YZIfPw01xUAn3camAQ700s82h5iQ4
+sk_test_YOUR_TEST_SECRET_KEY_HERE
 ```
 
 **Publishable Key (from script.js):**
 ```
-pk_test_51RkExhJyOFzlYZ85icg54mcoVKWQrw1TYTeOnOiZS53VACyFKpfWjrfgjy0AbmSIjT7sg3QitafBDPni9UjOVP1300036hMfaR
+pk_test_YOUR_TEST_PUBLISHABLE_KEY_HERE
 ```
 
 ## ✅ Verification

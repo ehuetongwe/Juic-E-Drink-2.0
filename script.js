@@ -6,7 +6,7 @@ let productQuantities = {}; // Track quantities for each product
 // Initialize Stripe (TEST MODE - Use test key for development)
 // Get your test key from: Stripe Dashboard → Developers → API keys → Publishable key (Test mode)
 // Test keys start with 'pk_test_' - Never use live keys ('pk_live_') for testing!
-const STRIPE_PUBLISHABLE_KEY = 'pk_test_51RkExhJyOFzlYZ85icg54mcoVKWQrw1TYTeOnOiZS53VACyFKpfWjrfgjy0AbmSIjT7sg3QitafBDPni9UjOVP1300036hMfaR'; // Replace with your test key: 'pk_test_51...'
+const STRIPE_PUBLISHABLE_KEY = 'pk_live_51RkExhJyOFzlYZ85t44jFdykv7vopSRpsN8CKsGF8tAkJISa3BQ2ktRNyMHxRmeRctnSYt3MnoGkG3PHM7t3LOMq00XMEqy3wX'; // Replace with your test key: 'pk_test_51...'
 let stripe = null;
 
 // Initialize Stripe
@@ -815,73 +815,27 @@ document.querySelectorAll('.nav-menu a').forEach(link => {
 // Navbar scroll effect
 let lastScroll = 0;
 const navbar = document.querySelector('.navbar');
+let navbarTicking = false;
 
 if (navbar) {
     window.addEventListener('scroll', () => {
-        const currentScroll = window.pageYOffset;
+        lastScroll = window.pageYOffset;
 
-        if (currentScroll > 100) {
-            navbar.style.boxShadow = '0 2px 20px rgba(0, 0, 0, 0.15)';
-        } else {
-            navbar.style.boxShadow = '0 2px 10px rgba(0, 0, 0, 0.1)';
+        if (!navbarTicking) {
+            window.requestAnimationFrame(() => {
+                if (lastScroll > 100) {
+                    navbar.style.boxShadow = '0 2px 20px rgba(0, 0, 0, 0.15)';
+                } else {
+                    navbar.style.boxShadow = '0 2px 10px rgba(0, 0, 0, 0.1)';
+                }
+                navbarTicking = false;
+            });
+            navbarTicking = true;
         }
-
-        lastScroll = currentScroll;
     });
 }
 
-// Enhanced smooth scroll function with easing
-function smoothScrollTo(targetPosition, duration = 800) {
-    const startPosition = window.pageYOffset;
-    const distance = targetPosition - startPosition;
-    let startTime = null;
-
-    // Easing function for smooth acceleration/deceleration
-    function easeInOutCubic(t) {
-        return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
-    }
-
-    function animation(currentTime) {
-        if (startTime === null) startTime = currentTime;
-        const timeElapsed = currentTime - startTime;
-        const progress = Math.min(timeElapsed / duration, 1);
-
-        window.scrollTo(0, startPosition + distance * easeInOutCubic(progress));
-
-        if (progress < 1) {
-            requestAnimationFrame(animation);
-        }
-    }
-
-    requestAnimationFrame(animation);
-}
-
-// Enhanced smooth scroll for anchor links
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
-        const href = this.getAttribute('href');
-
-        // Skip if it's just "#"
-        if (href === '#' || !href) {
-            return;
-        }
-
-        e.preventDefault();
-        const target = document.querySelector(href);
-
-        if (target) {
-            // Get navbar height dynamically
-            const navbar = document.querySelector('.navbar');
-            const navbarHeight = navbar ? navbar.offsetHeight : 70;
-
-            // Calculate target position
-            const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - navbarHeight;
-
-            // Use custom smooth scroll for better control
-            smoothScrollTo(targetPosition, 800);
-        }
-    });
-});
+// Custom smooth scroll logic removed - relying on native scroll-behavior: smooth in CSS
 
 // Intersection Observer for fade-in animations
 const observerOptions = {
@@ -950,11 +904,18 @@ if (contactForm) {
 }
 
 // Parallax effect for hero section
+let heroTicking = false;
 window.addEventListener('scroll', () => {
-    const scrolled = window.pageYOffset;
-    const hero = document.querySelector('.hero');
-    if (hero) {
-        hero.style.transform = `translateY(${scrolled * 0.5}px)`;
+    if (!heroTicking) {
+        window.requestAnimationFrame(() => {
+            const scrolled = window.pageYOffset;
+            const hero = document.querySelector('.hero');
+            if (hero) {
+                hero.style.transform = `translateY(${scrolled * 0.5}px)`;
+            }
+            heroTicking = false;
+        });
+        heroTicking = true;
     }
 });
 
@@ -981,11 +942,41 @@ const newsletterForm = document.getElementById('newsletterForm');
 if (newsletterForm) {
     newsletterForm.addEventListener('submit', (e) => {
         e.preventDefault();
-        const email = newsletterForm.querySelector('input[type="email"]').value;
 
-        // Here you would typically send to your backend/email service
-        alert('Thank you for subscribing! We\'ll keep you updated with our latest news and offers.');
-        newsletterForm.reset();
+        const submitBtn = newsletterForm.querySelector('button[type="submit"]');
+        const originalText = submitBtn ? submitBtn.textContent : 'Subscribe';
+
+        if (submitBtn) {
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Subscribing...';
+        }
+
+        const formData = new FormData(newsletterForm);
+        const data = new URLSearchParams();
+        for (const pair of formData) {
+            data.append(pair[0], pair[1]);
+        }
+        data.append('form-name', 'newsletter');
+
+        fetch('/', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            body: data.toString()
+        }).then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            alert('Thank you for subscribing! We\'ll keep you updated with our latest news and offers.');
+            newsletterForm.reset();
+        }).catch(error => {
+            alert('There was an issue subscribing. Please try again later.');
+            console.error('Newsletter form error:', error);
+        }).finally(() => {
+            if (submitBtn) {
+                submitBtn.disabled = false;
+                submitBtn.textContent = originalText;
+            }
+        });
     });
 }
 
@@ -1057,8 +1048,8 @@ function initializeFlavorTabs() {
 // Countdown Timer Functions
 // Set your target dates here (format: 'YYYY-MM-DD HH:MM:SS')
 // Example: '2024-12-31 23:59:59'
-const PREORDER_DEADLINE = '2026-03-04 13:32:38'; // Pre-order window deadline
-const DELIVERY_DATE = '2026-03-24 10:12:08'; // Juice delivery date
+const PREORDER_DEADLINE = '2026-03-01 00:00:00'; // Pre-order window deadline (set to past = closed)
+const DELIVERY_DATE = '2026-03-01 00:00:00'; // Juice delivery date (set to past = zero)
 
 let preorderInterval = null;
 let deliveryInterval = null;
@@ -1186,7 +1177,7 @@ function handlePreorderClosed() {
         <div class="closed-window-msg">
             <p><strong>Pre-order window is closed.</strong></p>
             <p>Join our mailing list below to be notified of the next Juic'E drop!</p>
-            <button class="btn btn-secondary mt-2" onclick="smoothScrollTo(document.querySelector('.newsletter').getBoundingClientRect().top + window.pageYOffset - 70, 800)">Sign Up Here</button>
+            <button class="btn btn-secondary mt-2" onclick="document.querySelector('.newsletter').scrollIntoView({ behavior: 'smooth' })">Sign Up Here</button>
         </div>
     `;
 
