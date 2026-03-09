@@ -249,6 +249,24 @@ async function handleCheckoutCompleted(session) {
         }
     }
 
+    // Send owner notification email
+    try {
+        await sendOwnerNotificationEmail({
+            customerName,
+            customerEmail,
+            customerPhone,
+            orderNumber,
+            items: orderItems,
+            subtotal: subtotal.toFixed(2),
+            shipping: shippingAmount.toFixed(2),
+            total,
+            shippingAddress,
+        });
+        console.log('Owner notification email sent to support@juicedrinks.biz');
+    } catch (error) {
+        console.error('Failed to send owner notification email:', error);
+    }
+
     // Send SMS confirmation
     if (customerPhone) {
         try {
@@ -394,6 +412,60 @@ The Juic'E Drinks Team
     };
 
     await sgMail.send(emailContent);
+}
+
+// Send order notification email to the business owner
+async function sendOwnerNotificationEmail({ customerName, customerEmail, customerPhone, orderNumber, items, subtotal, shipping, total, shippingAddress }) {
+    if (!process.env.SENDGRID_API_KEY) {
+        console.warn('SendGrid API key not configured, skipping owner notification');
+        return;
+    }
+
+    sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+
+    const itemsList = items.map(item =>
+        `<tr><td style="padding:8px;border-bottom:1px solid #eee;">${item.name}</td><td style="padding:8px;border-bottom:1px solid #eee;text-align:center;">${item.quantity}</td><td style="padding:8px;border-bottom:1px solid #eee;text-align:right;">$${item.price}</td></tr>`
+    ).join('');
+
+    await sgMail.send({
+        to: 'support@juicedrinks.biz',
+        from: process.env.SENDGRID_FROM_EMAIL,
+        subject: `New Order Received – #${orderNumber} | $${total}`,
+        html: `
+<div style="font-family:Arial,sans-serif;max-width:600px;margin:0 auto;border:1px solid #e0e0e0;border-radius:8px;overflow:hidden;">
+    <div style="background-color:#2F7C4C;color:white;padding:20px;text-align:center;">
+        <h2 style="margin:0;">New Order Received</h2>
+        <p style="margin:5px 0 0;">Order #${orderNumber}</p>
+    </div>
+    <div style="padding:20px;background:#ffffff;">
+        <h3 style="margin-top:0;">Customer Details</h3>
+        <p><strong>Name:</strong> ${customerName}</p>
+        <p><strong>Email:</strong> ${customerEmail || 'Not provided'}</p>
+        <p><strong>Phone:</strong> ${customerPhone || 'Not provided'}</p>
+        <p><strong>Ship To:</strong> ${shippingAddress}</p>
+        <h3>Order Summary</h3>
+        <table style="width:100%;border-collapse:collapse;">
+            <thead>
+                <tr style="background:#f5f5f5;">
+                    <th style="padding:8px;text-align:left;">Product</th>
+                    <th style="padding:8px;text-align:center;">Qty</th>
+                    <th style="padding:8px;text-align:right;">Price</th>
+                </tr>
+            </thead>
+            <tbody>${itemsList}</tbody>
+        </table>
+        <div style="text-align:right;margin-top:15px;">
+            <p style="margin:4px 0;">Subtotal: $${subtotal}</p>
+            <p style="margin:4px 0;">Shipping: $${shipping}</p>
+            <p style="font-size:18px;font-weight:bold;margin:8px 0;">Total: $${total}</p>
+        </div>
+    </div>
+    <div style="background:#f5f5f5;padding:10px;text-align:center;font-size:12px;color:#666;">
+        This notification was sent automatically by Juic'E Drinks.
+    </div>
+</div>
+        `.trim(),
+    });
 }
 
 // Send confirmation SMS using Twilio
