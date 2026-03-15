@@ -470,6 +470,9 @@
     <section id="about" class="about">
         <div class="container">
             <div class="about-content">
+                <div class="about-image">
+                    <img src="assets/images/about-process.webp.png" alt="Juic'E Drinks Production Process" class="process-photo">
+                </div>
                 <div class="about-text">
                     <h2>Why Juic'E Drinks?</h2>
                     <p class="about-lead">At Juic’E Drinks, we believe juice should be experienced as nature intended —
@@ -655,7 +658,13 @@
                     </div>
                 </div>
                 <div class="cart-footer-buttons">
-                    <button class="btn btn-secondary clear-cart-btn" id="clearCartBtn">Clear Cart</button>
+                    <div class="clear-cart-wrapper" id="clearCartWrapper">
+                        <button class="btn btn-secondary clear-cart-btn" id="clearCartBtn">Clear Cart</button>
+                        <div class="clear-confirm-state" id="clearConfirmState">
+                            <button class="btn clear-confirm-btn" id="clearConfirmYes">Are you sure? Yes, Clear Cart</button>
+                            <button class="clear-confirm-cancel" id="clearConfirmCancel" title="Cancel">&times;</button>
+                        </div>
+                    </div>
                     <button class="btn btn-primary checkout-btn" id="checkoutBtn" disabled>Proceed to Checkout</button>
                 </div>
             </div>

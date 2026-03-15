@@ -204,7 +204,10 @@ function updateCartUI() {
     if (cart.length === 0) {
         cartItems.innerHTML = '<p class="empty-cart-message">Your cart is empty</p>';
         checkoutBtn.disabled = true;
-        if (clearCartBtn) clearCartBtn.disabled = true;
+        if (clearCartBtn) {
+            clearCartBtn.disabled = true;
+            if (typeof hideClearConfirm === 'function') hideClearConfirm();
+        }
     } else {
         cartItems.innerHTML = cart.map(item => `
             <div class="cart-item">
@@ -288,22 +291,35 @@ function closeCart() {
     const cartModal = document.getElementById('cartModal');
     cartModal.classList.remove('active');
     document.body.style.overflow = '';
+    if (typeof hideClearConfirm === 'function') hideClearConfirm();
+}
+
+function showClearConfirm() {
+    if (cart.length === 0) return;
+    document.getElementById('clearCartBtn').style.display = 'none';
+    document.getElementById('clearConfirmState').classList.add('active');
+}
+
+function hideClearConfirm() {
+    const confirmState = document.getElementById('clearConfirmState');
+    if (confirmState) confirmState.classList.remove('active');
+    const clearBtn = document.getElementById('clearCartBtn');
+    if (clearBtn) clearBtn.style.display = 'block';
 }
 
 function clearCart() {
     if (cart.length === 0) return;
 
-    if (confirm('Are you sure you want to clear your cart?')) {
-        cart = [];
-        productQuantities = {};
-        updateCartUI();
-        saveCartToLocalStorage();
+    cart = [];
+    productQuantities = {};
+    updateCartUI();
+    saveCartToLocalStorage();
 
-        // Reset quantity displays
-        document.querySelectorAll('.qty-display').forEach(display => {
-            display.textContent = '0';
-        });
-    }
+    // Reset quantity displays (fixed selector)
+    document.querySelectorAll('.quantity-display').forEach(display => {
+        display.textContent = '0';
+    });
+    hideClearConfirm();
 }
 
 function proceedToCheckout() {
@@ -638,6 +654,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const closeCartBtn = document.getElementById('closeCart');
     const checkoutBtn = document.getElementById('checkoutBtn');
     const clearCartBtn = document.getElementById('clearCartBtn');
+    const clearConfirmYes = document.getElementById('clearConfirmYes');
+    const clearConfirmCancel = document.getElementById('clearConfirmCancel');
 
     if (cartButton) {
         cartButton.addEventListener('click', openCart);
@@ -652,7 +670,15 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     if (clearCartBtn) {
-        clearCartBtn.addEventListener('click', clearCart);
+        clearCartBtn.addEventListener('click', showClearConfirm);
+    }
+
+    if (clearConfirmYes) {
+        clearConfirmYes.addEventListener('click', clearCart);
+    }
+
+    if (clearConfirmCancel) {
+        clearConfirmCancel.addEventListener('click', hideClearConfirm);
     }
 
     // Close cart when clicking outside
