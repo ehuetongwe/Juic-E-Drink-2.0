@@ -221,7 +221,7 @@ async function handleCheckoutCompleted(session) {
 
             console.log('Successfully saved order to Supabase:', newOrder.id);
         } catch (dbError) {
-            console.error('Failed to save to Supabase:', err.message || dbError);
+            console.error('Failed to save to Supabase:', dbError.message || dbError);
             // We log the error but don't stop the email/SMS notifications
         }
     } else {
