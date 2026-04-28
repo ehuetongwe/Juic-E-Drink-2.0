@@ -498,7 +498,14 @@ async function handleModalPayment(event) {
         });
 
         if (!response.ok) {
-            throw new Error('Failed to create checkout session');
+            let errorMsg = 'Failed to create checkout session';
+            try {
+                const errorData = await response.json();
+                if (errorData.error) errorMsg += ': ' + errorData.error;
+            } catch (e) {
+                // ignore
+            }
+            throw new Error(errorMsg);
         }
 
         const { sessionId } = await response.json();
@@ -616,7 +623,14 @@ async function handlePayment(event) {
         });
 
         if (!response.ok) {
-            throw new Error('Failed to create checkout session');
+            let errorMsg = 'Failed to create checkout session';
+            try {
+                const errorData = await response.json();
+                if (errorData.error) errorMsg += ': ' + errorData.error;
+            } catch (e) {
+                // ignore
+            }
+            throw new Error(errorMsg);
         }
 
         const { sessionId } = await response.json();
