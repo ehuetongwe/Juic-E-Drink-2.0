@@ -89,7 +89,7 @@ exports.handler = async (event, context) => {
                     shipping_rate_data: {
                         type: 'fixed_amount',
                         fixed_amount: {
-                            amount: 599, // $5.99 in cents
+                            amount: 799, // $7.99 in cents
                             currency: 'usd',
                         },
                         display_name: 'Standard Shipping',

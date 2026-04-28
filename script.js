@@ -1,6 +1,6 @@
 // Shopping Cart State
 let cart = [];
-const SHIPPING_COST = 5.99;
+const SHIPPING_COST = 7.99;
 let productQuantities = {}; // Track quantities for each product
 
 // Initialize Stripe (TEST MODE - Use test key for development)
