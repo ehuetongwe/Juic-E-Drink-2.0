@@ -3,7 +3,8 @@ let cart = [];
 function getShippingCost() {
     // Transformation Pack ID is 104, Master Pack ID is 105 (100 + packageId)
     const hasFreeShippingPack = cart.some(item => item.id === 104 || item.id === 105);
-    return hasFreeShippingPack ? 0.00 : 7.99;
+    const subtotal = getCartTotal();
+    return (hasFreeShippingPack || subtotal > 100) ? 0.00 : 7.99;
 }
 let productQuantities = {}; // Track quantities for each product
 
