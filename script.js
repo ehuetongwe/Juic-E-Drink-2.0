@@ -1,6 +1,10 @@
 // Shopping Cart State
 let cart = [];
-const SHIPPING_COST = 7.99;
+function getShippingCost() {
+    // Transformation Pack ID is 104, Master Pack ID is 105 (100 + packageId)
+    const hasFreeShippingPack = cart.some(item => item.id === 104 || item.id === 105);
+    return hasFreeShippingPack ? 0.00 : 7.99;
+}
 let productQuantities = {}; // Track quantities for each product
 
 // Initialize Stripe (TEST MODE - Use test key for development)
@@ -260,9 +264,14 @@ function updateOrderSummary() {
         }
 
         const subtotal = getCartTotal();
-        const total = subtotal + SHIPPING_COST;
+        const shipping = getShippingCost();
+        const total = subtotal + shipping;
 
         if (summarySubtotal) summarySubtotal.textContent = subtotal.toFixed(2);
+        
+        const summaryShipping = document.getElementById('summaryShipping');
+        if (summaryShipping) summaryShipping.textContent = shipping.toFixed(2);
+        
         if (summaryTotal) summaryTotal.textContent = total.toFixed(2);
         if (paymentTotal) paymentTotal.textContent = total.toFixed(2);
     }
@@ -371,9 +380,14 @@ function updateCheckoutModalSummary() {
         }
 
         const subtotal = getCartTotal();
-        const total = subtotal + SHIPPING_COST;
+        const shipping = getShippingCost();
+        const total = subtotal + shipping;
 
         if (modalSubtotal) modalSubtotal.textContent = subtotal.toFixed(2);
+        
+        const modalShipping = document.getElementById('checkoutModalShipping');
+        if (modalShipping) modalShipping.textContent = shipping.toFixed(2);
+        
         if (modalTotal) modalTotal.textContent = total.toFixed(2);
         if (modalPaymentTotal) modalPaymentTotal.textContent = total.toFixed(2);
     }
@@ -404,7 +418,7 @@ async function handleModalPayment(event) {
             phone: document.getElementById('modalPhone').value,
         };
 
-        console.log('Order details (demo):', { items: cart, shipping: SHIPPING_COST, shippingInfo: formData });
+        console.log('Order details (demo):', { items: cart, shipping: getShippingCost(), shippingInfo: formData });
 
         // Clear cart and reset form
         cart = [];
@@ -441,7 +455,7 @@ async function handleModalPayment(event) {
     try {
         // Calculate total amount in cents
         const subtotal = getCartTotal();
-        const total = subtotal + SHIPPING_COST;
+        const total = subtotal + getShippingCost();
         const totalInCents = Math.round(total * 100);
 
         // Prepare line items for Stripe Checkout
@@ -468,6 +482,7 @@ async function handleModalPayment(event) {
             body: JSON.stringify({
                 lineItems: lineItems,
                 shippingInfo: formData,
+                shippingAmount: Math.round(getShippingCost() * 100),
                 successUrl: `${window.location.origin}${window.location.pathname}?success=true`,
                 cancelUrl: `${window.location.origin}${window.location.pathname}?canceled=true`,
             }),
@@ -524,7 +539,7 @@ async function handlePayment(event) {
             phone: document.getElementById('phone').value,
         };
 
-        console.log('Order details (demo):', { items: cart, shipping: SHIPPING_COST, shippingInfo: formData });
+        console.log('Order details (demo):', { items: cart, shipping: getShippingCost(), shippingInfo: formData });
 
         // Clear cart and reset form
         cart = [];
@@ -559,7 +574,7 @@ async function handlePayment(event) {
     try {
         // Calculate total amount in cents
         const subtotal = getCartTotal();
-        const total = subtotal + SHIPPING_COST;
+        const total = subtotal + getShippingCost();
 
         // Prepare line items for Stripe Checkout
         const lineItems = cart.map(item => ({
@@ -585,6 +600,7 @@ async function handlePayment(event) {
             body: JSON.stringify({
                 lineItems: lineItems,
                 shippingInfo: formData,
+                shippingAmount: Math.round(getShippingCost() * 100),
                 successUrl: `${window.location.origin}${window.location.pathname}?success=true`,
                 cancelUrl: `${window.location.origin}${window.location.pathname}?canceled=true`,
             }),

@@ -46,7 +46,7 @@ exports.handler = async (event, context) => {
     try {
         // Parse the request body
         const requestBody = JSON.parse(event.body);
-        const { lineItems, shippingInfo, successUrl, cancelUrl } = requestBody;
+        const { lineItems, shippingInfo, shippingAmount, successUrl, cancelUrl } = requestBody;
 
         // Validate required data
         if (!lineItems || !Array.isArray(lineItems) || lineItems.length === 0) {
@@ -89,7 +89,7 @@ exports.handler = async (event, context) => {
                     shipping_rate_data: {
                         type: 'fixed_amount',
                         fixed_amount: {
-                            amount: 799, // $7.99 in cents
+                            amount: shippingAmount !== undefined ? shippingAmount : 799, // default to $7.99 in cents if not provided
                             currency: 'usd',
                         },
                         display_name: 'Standard Shipping',
