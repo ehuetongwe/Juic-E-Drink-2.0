@@ -266,12 +266,16 @@ function updateOrderSummary() {
 
         const subtotal = getCartTotal();
         const shipping = getShippingCost();
-        const total = subtotal + shipping;
+        const total = subtotal;
 
         if (summarySubtotal) summarySubtotal.textContent = subtotal.toFixed(2);
         
         const summaryShipping = document.getElementById('summaryShipping');
-        if (summaryShipping) summaryShipping.textContent = shipping.toFixed(2);
+        if (summaryShipping) {
+            summaryShipping.innerHTML = shipping === 0 
+                ? '<span style="color:var(--primary-color); font-weight:600;">Free</span>' 
+                : '<span style="font-size: 0.9em; color: var(--text-light);">Calculated at checkout</span>';
+        }
         
         if (summaryTotal) summaryTotal.textContent = total.toFixed(2);
         if (paymentTotal) paymentTotal.textContent = total.toFixed(2);
@@ -382,12 +386,16 @@ function updateCheckoutModalSummary() {
 
         const subtotal = getCartTotal();
         const shipping = getShippingCost();
-        const total = subtotal + shipping;
+        const total = subtotal;
 
         if (modalSubtotal) modalSubtotal.textContent = subtotal.toFixed(2);
         
         const modalShipping = document.getElementById('checkoutModalShipping');
-        if (modalShipping) modalShipping.textContent = shipping.toFixed(2);
+        if (modalShipping) {
+            modalShipping.innerHTML = shipping === 0 
+                ? '<span style="color:var(--primary-color); font-weight:600;">Free</span>' 
+                : '<span style="font-size: 0.9em; color: var(--text-light);">Calculated at checkout</span>';
+        }
         
         if (modalTotal) modalTotal.textContent = total.toFixed(2);
         if (modalPaymentTotal) modalPaymentTotal.textContent = total.toFixed(2);
