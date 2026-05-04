@@ -1113,8 +1113,8 @@ function initializeFlavorTabs() {
 // Countdown Timer Functions
 // Set your target dates here (format: 'YYYY-MM-DD HH:MM:SS')
 // Example: '2024-12-31 23:59:59'
-const PREORDER_DEADLINE = '2026-04-28T10:59:26-04:00'; // Pre-order window deadline (EDT)
-const DELIVERY_DATE = '2026-04-27T09:00:00-04:00'; // Juice delivery date (EDT)
+const PREORDER_DEADLINE = '2026-05-18T10:00:00-04:00'; // Pre-order window deadline (EDT)
+const DELIVERY_DATE = '2026-05-25T10:00:00-04:00'; // Juice delivery date (EDT)
 
 let preorderInterval = null;
 let deliveryInterval = null;
