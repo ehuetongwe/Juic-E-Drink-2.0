@@ -1113,7 +1113,8 @@ function initializeFlavorTabs() {
 // Countdown Timer Functions
 // Set your target dates here (format: 'YYYY-MM-DD HH:MM:SS')
 // Example: '2024-12-31 23:59:59'
-const PREORDER_DEADLINE = '2026-05-21T10:00:00-04:00'; // Pre-order window deadline (EDT)
+const PREORDER_START_DATE = '2026-06-01T00:00:00-04:00'; // Pre-order window start (EDT)
+const PREORDER_DEADLINE = '2026-06-11T00:00:00-04:00'; // Pre-order window deadline (EDT)
 const DELIVERY_DATE = '2026-05-25T10:00:00-04:00'; // Juice delivery date (EDT)
 
 let preorderInterval = null;
@@ -1121,11 +1122,28 @@ let deliveryInterval = null;
 
 function updateCountdown(targetDate, daysId, hoursId, minutesId, secondsId) {
     const now = new Date().getTime();
+
+    // Check if preorder has not started yet
+    if (daysId === 'preorderDays') {
+        const startTime = new Date(PREORDER_START_DATE).getTime();
+        if (now < startTime) {
+            handlePreorderNotStarted();
+            targetDate = PREORDER_START_DATE; // Countdown to start date instead
+        } else {
+            const subtitle = document.querySelector('#preorderCountdown')?.previousElementSibling;
+            if (subtitle && subtitle.textContent.includes('opens in')) {
+                location.reload(); // Reload to restore UI once it starts
+            }
+        }
+    }
+
     const target = new Date(targetDate).getTime();
     const distance = target - now;
 
-    if (daysId === 'preorderDays') {
+    if (daysId === 'preorderDays' && now >= new Date(PREORDER_START_DATE).getTime()) {
         window.isPreorderClosed = distance < 0;
+    } else if (daysId === 'preorderDays') {
+        window.isPreorderClosed = true; // functionally closed until it starts
     }
 
     if (distance < 0) {
@@ -1222,6 +1240,46 @@ function initializeCountdowns() {
 
     if (document.getElementById('deliveryDays')) {
         startDeliveryCountdown();
+    }
+}
+
+function handlePreorderNotStarted() {
+    const subtitle = document.querySelector('#preorderCountdown')?.previousElementSibling;
+    if (subtitle) subtitle.textContent = 'Pre-order window opens in:';
+
+    const allAddButtons = document.querySelectorAll('.add-to-cart-btn, .add-package-btn');
+    allAddButtons.forEach(btn => btn.style.display = 'none');
+
+    const quantityControls = document.querySelectorAll('.quantity-selector');
+    quantityControls.forEach(ctrl => ctrl.style.display = 'none');
+
+    const productCards = document.querySelectorAll('.product-card');
+    const packageCards = document.querySelectorAll('.package-card');
+
+    const notStartedMessageHTML = `
+        <div class="not-started-msg" style="margin-top: 15px; padding: 15px; background: #f8f9fa; border-radius: 8px; text-align: center;">
+            <p><strong>Pre-orders open on June 1st!</strong></p>
+            <p style="font-size: 0.9em; margin-top: 5px;">Join our mailing list below to be notified when the drop goes live!</p>
+        </div>
+    `;
+
+    productCards.forEach(card => {
+        if (!card.querySelector('.not-started-msg') && !card.querySelector('.closed-window-msg')) {
+            card.insertAdjacentHTML('beforeend', notStartedMessageHTML);
+        }
+    });
+
+    packageCards.forEach(card => {
+        const actionsContainer = card.querySelector('.package-actions');
+        if (actionsContainer && !card.querySelector('.not-started-msg') && !card.querySelector('.closed-window-msg')) {
+            actionsContainer.insertAdjacentHTML('beforebegin', notStartedMessageHTML);
+        }
+    });
+
+    const checkoutBtn = document.getElementById('checkoutBtn');
+    if (checkoutBtn) {
+        checkoutBtn.disabled = true;
+        checkoutBtn.textContent = 'Pre-orders Open June 1st';
     }
 }
 
