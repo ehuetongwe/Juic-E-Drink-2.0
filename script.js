@@ -1115,7 +1115,10 @@ function initializeFlavorTabs() {
 // Example: '2024-12-31 23:59:59'
 const PREORDER_START_DATE = '2026-06-01T00:00:00-04:00'; // Pre-order window start (EDT)
 const PREORDER_DEADLINE = '2026-06-11T00:00:00-04:00'; // Pre-order window deadline (EDT)
-const DELIVERY_DATE = '2026-05-25T10:00:00-04:00'; // Juice delivery date (EDT)
+
+// Sync Juic'E Drop countdown clock to be exactly 7 days after the pre-order deadline
+const deliveryDateObj = new Date(new Date(PREORDER_DEADLINE).getTime() + 7 * 24 * 60 * 60 * 1000);
+const DELIVERY_DATE = deliveryDateObj.toISOString();
 
 let preorderInterval = null;
 let deliveryInterval = null;
