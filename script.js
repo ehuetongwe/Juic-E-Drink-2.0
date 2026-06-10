@@ -1114,7 +1114,7 @@ function initializeFlavorTabs() {
 // Set your target dates here (format: 'YYYY-MM-DD HH:MM:SS')
 // Example: '2024-12-31 23:59:59'
 const PREORDER_START_DATE = '2026-06-01T00:00:00-04:00'; // Pre-order window start (EDT)
-const PREORDER_DEADLINE = '2026-06-11T00:00:00-04:00'; // Pre-order window deadline (EDT)
+const PREORDER_DEADLINE = '2026-06-18T00:00:00-04:00'; // Pre-order window deadline (EDT)
 
 // Sync Juic'E Drop countdown clock to be exactly 7 days after the pre-order deadline
 const deliveryDateObj = new Date(new Date(PREORDER_DEADLINE).getTime() + 7 * 24 * 60 * 60 * 1000);
